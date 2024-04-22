@@ -1,0 +1,20 @@
+[
+    {
+        "_id": "642c155b2c4774f05c36ee7a",
+        "name": "Wireless Access Point",
+        "description": "DLink Wireless Access Point",
+        "image": "https://i.ibb.co/0t4dKF7/img2.png",
+        "category": "used",
+        "price": 140
+    },    
+    {
+        "_id": "642c155b2c4774f05c36ee7c",
+        "name": "Cisco ASA 5505",
+        "description": "The Cisco ASA 5505 is a full-featured firewall.",
+        "image": "https://i.ibb.co/mbj8wGc/img3.png",
+        "category": "popular",
+        "price": 24500
+    }
+   
+
+]
