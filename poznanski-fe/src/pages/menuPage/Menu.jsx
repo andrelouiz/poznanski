@@ -94,8 +94,9 @@ const Menu = () => {
             <h2 className="md:text-5xl text-4xl font-bold md:leading-snug leading-snug">
              Top Quality  <span className="text-red">Network Devices</span>
             </h2>
-            <p className="text-[#4A4A4A]  text-xl md:w-4/5 mx-auto">
-              Browse the best devices on the market for your datacenter
+            <p className="text-xl md:w-4/5 mx-auto">
+            <p className={`text-${isDarkMode ? 'white' : 'black'}`}>Browse the best devices on the market for your datacenter</p>
+              
             </p>
           </div>
         </div>
@@ -106,7 +107,7 @@ const Menu = () => {
         <div className="flex flex-col md:flex-row flex-wrap md:justify-between items-center space-y-3 mb-8">
           
            {/* all category buttons */}
-          <div className="flex flex-row justify-start md:items-center md:gap-8 gap-4  flex-wrap">
+          <div className="flex flex-row justify-start md:items-center md:gap-8 gap-4 flex-wrap">
             <button
               onClick={showAll}
               className={selectedCategory === "all" ? "active" : ""}

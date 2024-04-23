@@ -29,7 +29,7 @@ const Signup = () => {
   const onSubmit = (data) => {
     const email = data.email;
     const password = data.password;
-    // console.log(email, password)
+    console.log(email, password)
     createUser(email, password)
       .then((result) => {
         // Signed up
@@ -55,7 +55,6 @@ const Signup = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
       });
   };
 

@@ -24,7 +24,7 @@ const Banner = () => {
         <h2 className="md:text-5xl text-4xl font-bold md:leading-snug leading-snug">
            Reliable Network Devices For Your <span className="text-red">Business Needs</span> 
           </h2>
-          <p className="my-5 text-secondary leading-[30px]"> Meticulously selected cutting-edge network solutions for enterprises
+          <p className={`text-xl text-${isDarkMode ? 'white' : 'black'}`}> Meticulously selected cutting-edge network solutions for enterprises
             </p>
           <Link to="/menu"><button className="bg-red mt-9 font-semibold btn text-white px-8 py-3 rounded-full">
             Shop now

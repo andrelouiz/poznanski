@@ -39,32 +39,32 @@ const Navbar = () => {
   const navItems = (
     <>
       <li>
-        <a href="/" className={`text-${isDarkMode ? 'dark' : ''}`}>
+        <a href="/" className={`text-${isDarkMode ? 'dark' : 'black'}`}>
           Home
         </a>
       </li>
       <li>
-        <a href="/menu" className={`text-${isDarkMode ? 'dark' : ''}`}>
+        <a href="/menu" className={`text-${isDarkMode ? 'dark' : 'black'}`}>
           Devices
         </a>
       </li>
       <li>
-        <a href="/order" className={`text-${isDarkMode ? 'dark' : ''}`}>
+        <a href="/order" className={`text-${isDarkMode ? 'dark' : 'black'}`}>
           Track Order
         </a>
       </li>
       <li tabIndex={0}>
         <details>
-          <summary className={`text-${isDarkMode ? 'dark' : ''}`}>Services</summary>
+          <summary className={`text-${isDarkMode ? 'dark' : 'black'}`}>Services</summary>
           <ul className={`p-2 ${isDarkMode ? 'dark' : ''}`}>
             <li>
-              <a className={`text-${isDarkMode ? 'text-white' : 'black'}`}>About Us</a>
+              <a className={`text-${isDarkMode ? 'text-white' : 'white'}`}>About Us</a>
             </li>
             <li>
-              <a className={`text-${isDarkMode ? 'white' : 'black'}`}>Info</a>
+              <a className={`text-${isDarkMode ? 'white' : 'white'}`}>Info</a>
             </li>
             <li>
-              <a className={`text-${isDarkMode ? 'white' : 'black'}`}>Order Tracking</a>
+              <a className={`text-${isDarkMode ? 'white' : 'white'}`}>Order Tracking</a>
             </li>
           </ul>
         </details>
@@ -103,7 +103,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-64 space-y-3 ${isDarkMode ? 'dark' : ''}`}
+              className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-64 space-y-3 ${isDarkMode ? 'dark' : 'red'}`}
               style={{ display: isMenuOpen ? "block" : "none" }}
             >
               {navItems}
