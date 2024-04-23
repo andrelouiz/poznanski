@@ -130,7 +130,7 @@ const Menu = () => {
               onClick={() => filterItems("firewall")}
               className={selectedCategory === "firewall" ? "active" : ""}
             >
-              Firewall
+              Firewalls
             </button>
             <button
               onClick={() => filterItems("used")}

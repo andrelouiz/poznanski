@@ -58,13 +58,13 @@ const Navbar = () => {
           <summary className={`text-${isDarkMode ? 'dark' : 'black'}`}>Services</summary>
           <ul className={`p-2 ${isDarkMode ? 'dark' : ''}`}>
             <li>
-              <a className={`text-${isDarkMode ? 'text-white' : 'white'}`}>About Us</a>
+              <a href="/AboutUs" className={`text-${isDarkMode ? 'text-white' : 'white'}`}>About Us</a>
             </li>
             <li>
-              <a className={`text-${isDarkMode ? 'white' : 'white'}`}>Info</a>
+              <a href="/CCNA" className={`text-${isDarkMode ? 'white' : 'white'}`}>CCNA Training</a>
             </li>
             <li>
-              <a className={`text-${isDarkMode ? 'white' : 'white'}`}>Order Tracking</a>
+              <a href="/FAQ" className={`text-${isDarkMode ? 'white' : 'white'}`}>FAQ</a>
             </li>
           </ul>
         </details>
@@ -117,6 +117,7 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navItems}</ul>
         </div>
         <div className="navbar-end ">
+
           <button className="btn btn-ghost btn-circle hidden lg:flex">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -155,7 +156,7 @@ const Navbar = () => {
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              <span className="badge badge-sm indicator-item">{cart.length || 0}</span>
+              <span className="badge badge-sm color-red indicator-item">{cart.length || 0}</span>
             </div>
           </label>
          </Link>

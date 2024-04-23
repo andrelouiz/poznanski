@@ -16,6 +16,9 @@ import ManageItems from "../pages/dashboard/admin/ManageItems";
 import UpdateMenu from "../pages/dashboard/admin/UpdateMenu";
 import Payment from "../pages/menuPage/Payment";
 import ManageBookings from "../pages/dashboard/admin/ManageBookings";
+import CCNA from "../pages/home/CCNA";
+import FAQ from "../pages/home/FAQ";
+import AboutUs from "../pages/home/AboutUs";
 
 const router = createBrowserRouter([
     {
@@ -45,6 +48,18 @@ const router = createBrowserRouter([
         {
           path: "/process-checkout",
           element: <Payment/>
+        },
+        {
+          path: "/CCNA",
+          element: <CCNA/>
+        },
+        {
+          path: "/FAQ",
+          element: <FAQ/>
+        },
+        {
+          path: "/AboutUs",
+          element: <AboutUs/>
         }
       ]
     },

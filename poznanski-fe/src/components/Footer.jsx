@@ -15,18 +15,18 @@ const Footer = () => {
         </aside>
         <nav>
           <header className="footer-title text-black">Useful links</header>
-          <a className="link link-hover">About us</a>
-          <a className="link link-hover">Blogs</a>
-          <a className="link link-hover">FAQ</a>
+          <a href="/menu" className="link link-hover">About Us</a>
+          <a href="/menu" className="link link-hover">CCNA Training</a>
+          <a href="/menu" className="link link-hover">FAQ</a>
         </nav>
         <nav>
           <header className="footer-title">Main Menu</header>
-          <a className="link link-hover">Home</a>
-          <a className="link link-hover">Offers</a>
+          <a href="/menu" className="link link-hover">Home</a>
+          <a href="/menu" className="link link-hover">Offers</a>
         </nav>
         <nav>
           <header className="footer-title">Contact Us</header>
-          <a className="link link-hover">contact@poznanski.com</a>
+          <a href= "mailto: customerservice@poznanski.com"> customerservice@poznanski.com</a>
           <a className="link link-hover">+48 555 777 888</a>
         </nav>
       </footer>
