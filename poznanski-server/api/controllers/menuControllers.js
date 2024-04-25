@@ -13,6 +13,8 @@ const getAllMenuItems = async (req, res) => {
 // post a menu item
 const postMenuItem = async (req, res) => {
   const newMenu = req.body;
+  console.log("New Menu Object:", newMenu);
+
   try {
     const result = await Menu.create(newMenu);
     res.status(200).json(result);
