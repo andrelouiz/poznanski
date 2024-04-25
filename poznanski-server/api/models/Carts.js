@@ -9,7 +9,6 @@ const cartSchema = new Schema({
         required: true,
         minlength: 3,
     },
-    devicedata: String,
     image: String, 
     price: Number,
     quantity: Number,

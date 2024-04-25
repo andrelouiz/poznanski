@@ -8,14 +8,14 @@ const menuSchema = new Schema({
         required: true,
         minlength: 3,
     },
-    devicedata: String,
     image: String, 
     category: String,
     price: Number,
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    deviceDescription: String
 });
 
 const Menu = mongoose.model('menu', menuSchema);

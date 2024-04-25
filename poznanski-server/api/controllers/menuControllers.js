@@ -56,21 +56,26 @@ const singleMenuItem = async (req, res) => {
 
 // update a menu item
 const updateMenuItem = async (req, res) => {
-    const menuId = req.params.id;
-    console.log(menuId)
-  const { _id, name, devicedata, image, category, price, createdAt} = req.body;
-  // console.log(req.body)
+  const menuId = req.params.id;
+  console.log(menuId);
+
   try {
+    const { name, deviceDescription, image, category, price } = req.body;
+
+    if (!name || !deviceDescription || !image || !category || !price) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
     const updatedMenu = await Menu.findByIdAndUpdate(
         menuId,
-      {  name, devicedata, image, category, price},
+      {  name, deviceDescription, image, category, price},
       { new: true, runValidators: true }
     );
 
-    console.log(updatedMenu)
+    console.log(updatedMenu);
 
     if (!updatedMenu) {
-      return res.status(404).json({ message: "updated Item not found" });
+      return res.status(404).json({ message: "Updated item not found" });
     }
 
     res.status(200).json(updatedMenu);
@@ -78,6 +83,7 @@ const updateMenuItem = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 module.exports = {
   getAllMenuItems,

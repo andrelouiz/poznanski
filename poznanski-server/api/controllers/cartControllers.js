@@ -25,7 +25,7 @@ const getCartByEmail = async (req, res) => {
 
 // post all carts
 const addToCarts = async (req, res) => {
-  const { name, devicedata, image, price, email, quantity, menuItemId } = req.body;
+  const { name, deviceDescription, image, price, email, quantity, menuItemId } = req.body;
 
   try {
     
@@ -43,7 +43,7 @@ const addToCarts = async (req, res) => {
     // If menuItemId doesn't exist, create a new cart item
     const cartItem = await Carts.create({
       name,
-      devicedata,
+      deviceDescription,
       image,
       price,
       email,
@@ -76,11 +76,11 @@ const deleteCart = async (req, res) => {
 // update cart quantity
 const updateCart = async (req, res) => {
   const cartId = req.params.id;
-  const { name, devicedata, image, price, email, quantity, menuItemId } = req.body;
+  const { name, deviceDescription, image, price, email, quantity, menuItemId } = req.body;
   try {
     const updatedCart = await Carts.findByIdAndUpdate(
       cartId,
-      { name, devicedata, image, price, email, quantity, menuItemId },
+      { name, deviceDescription, image, price, email, quantity, menuItemId },
       { new: true, runValidators: true }
     );
 

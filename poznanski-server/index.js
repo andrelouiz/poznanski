@@ -37,7 +37,7 @@ const usersRoutes = require("./api/routes/userRoutes");
 const paymentRoutes = require("./api/routes/paymentRoutes");
 const adminStats = require('./api/routes/adminStats');
 const orderStats = require('./api/routes/orderStats');
-
+const orderStats = require('./api/routes/orderStats');
 app.use("/menu", menuRoutes);
 app.use("/carts", cartsRoutes);
 app.use("/Users", usersRoutes);
