@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Andre Dos Santos",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
