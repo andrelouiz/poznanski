@@ -20,13 +20,13 @@ const teamHighlights = [
 const FAQ = () => {
     const { isDarkMode } = useTheme();
     return (
-        <div className={`max-w-screen-2xl container mx-11 my-24 xl:px-24 bg-FAFAFA from-0% from-[#FAFAFA] to-[#FCFCFC] to-100% ${isDarkMode ? 'dark' : ''}`}>
+        <div className={`max-w-screen-2xl container mx-auto xl:px-24 py-40 bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100% ${isDarkMode ? 'dark' : ''}`}>
         <div className="w-full">
             <div className="grid grid-cols-4 gap-8 bg-transparent items-center">
                 {
                     teamHighlights.map((highlight) => (
-                        <div key={highlight.id} className="shadow-md rounded-lg py-5 px-4 text-center space-y-1 text-red transition-all duration-200 bg-transparent">
-                            <img src={highlight.img} alt="" className="mx-auto"/>
+                        <div key={highlight.id} className="shadow-md rounded-lg flex flex-col justify-between py-5 px-4 text-center space-y-1 text-red transition-all duration-200 bg-grey h-full">
+                        <img src={highlight.img} alt="" className="mx-auto"/>
                             <h5 className="pt-3 font-semibold">{highlight.title}</h5>
                             <p className="text-white">{highlight.des}</p>
                         </div>

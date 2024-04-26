@@ -13,7 +13,7 @@ export default {
         "red": "#FF6868",
         "secondary": "#555",
         "prigmayBG": "#FCFCFC",
-        "grey": "#111827",
+        "grey": "#191b24",
         "transparent": 'transparent',
         
       }

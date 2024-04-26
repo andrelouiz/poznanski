@@ -12,7 +12,7 @@ const teamHighlights = [
 const AboutUs = () => {
     const { isDarkMode } = useTheme();
     return (
-        <div className={`max-w-screen-2xl container mx-11 my-24 xl:px-24 bg-FAFAFA from-0% from-[#FAFAFA] to-[#FCFCFC] to-100% ${isDarkMode ? 'dark' : ''}`}>
+        <div className={`max-w-screen-2xl container mx-auto xl:px-24 py-40 bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100% ${isDarkMode ? 'dark' : ''}`}>
             <div className="flex flex-col md:flex-row items-center justify-between gap-12">
                 <div className="md:w-1/2">
                     <div className="text-left md:w-4/5">
@@ -31,7 +31,7 @@ const AboutUs = () => {
                     <div className="grid sm:grid-cols-2 grid-cols-1 gap-8 bg-transparent items-center ">
                         {
                             teamHighlights.map((highlight) => (
-                                <div key={highlight.id} className="shadow-md rounded-lg py-5 px-4 text-center space-y-1 text-red transition-all duration-200 bg-transparent">
+                                <div key={highlight.id} className="shadow-md rounded-lg py-5 px-4 text-center space-y-1 text-red transition-all duration-200 bg-grey">
                                     <img src={highlight.img} alt="" className="mx-auto"/>
                                     <h5 className="pt-3 font-semibold">{highlight.title}</h5>
                                     <p className="text-white">{highlight.des}</p>
