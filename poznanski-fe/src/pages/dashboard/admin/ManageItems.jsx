@@ -47,7 +47,7 @@ const ManageItems = () => {
       const newMenu = menu.filter(m => m._id !== item._id);
       setMenu(newMenu);
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "success",
         title: `${item.name} has been deleted`,
         showConfirmButton: false,

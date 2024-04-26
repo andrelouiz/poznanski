@@ -28,7 +28,7 @@ const sharedMenu = (
     <li>
       <Link to="/menu">
         <FaCartShopping />
-        Menu
+        Shop Devices
       </Link>
     </li>
     <li>

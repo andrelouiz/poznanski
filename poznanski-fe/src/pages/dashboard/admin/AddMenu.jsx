@@ -31,7 +31,7 @@ const AddMenu = () => {
           name: data.name,
           category: data.category,
           price: parseFloat(data.price),
-          devicedata: data.devicedata,
+          deviceDescription: data.deviceDescription,
           image: hostingImg.data.data.display_url
       }
       // 
@@ -41,7 +41,7 @@ const AddMenu = () => {
           // show success popup
           reset();
           Swal.fire({
-              position: "top-end",
+              position: "center",
               icon: "success",
               title: `${data.name} is added to the menu.`,
               showConfirmButton: false,
@@ -49,7 +49,6 @@ const AddMenu = () => {
             });
       }
   }
-
   };
 
   return (
@@ -89,7 +88,7 @@ const AddMenu = () => {
                 <option value="switch">Switches</option>
                 <option value="firewall">Firewalls</option>
                 <option value="popular">Popular</option>
-                <option value="used">Used</option>
+                <option value="used">Used Parts</option>
               </select>
             </div>
 
@@ -112,7 +111,7 @@ const AddMenu = () => {
               <span className="label-text">Device Details</span>
             </label>
             <textarea
-              {...register("devicedata")}
+              {...register("deviceDescription")}
               className="textarea textarea-bordered h-24"
               placeholder="Description"
             ></textarea>

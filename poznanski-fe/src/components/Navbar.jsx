@@ -45,7 +45,7 @@ const Navbar = () => {
       </li>
       <li>
         <a href="/menu" className={`text-${isDarkMode ? 'dark' : 'black'}`}>
-          Devices
+          Shop Devices
         </a>
       </li>
       <li>
@@ -61,10 +61,10 @@ const Navbar = () => {
               <a href="/AboutUs" className={`text-${isDarkMode ? 'text-white' : 'white'}`}>About Us</a>
             </li>
             <li>
-              <a href="/CCNA" className={`text-${isDarkMode ? 'white' : 'white'}`}>CCNA Training</a>
+              <a href="/FAQ" className={`text-${isDarkMode ? 'white' : 'white'}`}>FAQ</a>
             </li>
             <li>
-              <a href="/FAQ" className={`text-${isDarkMode ? 'white' : 'white'}`}>FAQ</a>
+              <a href="/CCNA" className={`text-${isDarkMode ? 'white' : 'white'}`}>CCNA Training</a>
             </li>
           </ul>
         </details>
@@ -81,26 +81,10 @@ const Navbar = () => {
           isSticky
             ? "shadow-md bg-base-100 transition-all duration-300 ease-in-out text-black"
             : ""
-        }`}
-      >
+        }`} >
         <div className="navbar-start">
           <div className="dropdown justify-between">
-            <label onClick={toggleMenu} tabIndex={0} className="btn btn-ghost lg:hidden" >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
-            </label>
+
             <ul
               tabIndex={0}
               className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-64 space-y-3 ${isDarkMode ? 'dark' : 'red'}`}
@@ -117,24 +101,6 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navItems}</ul>
         </div>
         <div className="navbar-end ">
-
-          <button className="btn btn-ghost btn-circle hidden lg:flex">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </button>
-         
          {/* shopping cart */}
          <Link to="/cart-page">
          <label
@@ -156,7 +122,7 @@ const Navbar = () => {
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              <span className="badge badge-sm color-red indicator-item">{cart.length || 0}</span>
+              <span className="badge badge-sm bg-red text-white indicator-item">{cart.length || 0}</span>
             </div>
           </label>
          </Link>

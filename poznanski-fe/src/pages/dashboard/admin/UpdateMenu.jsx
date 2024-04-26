@@ -37,7 +37,7 @@ const UpdateMenu = () => {
         name: data?.name,
         category: data.category,
         price: parseFloat(data.price),
-        devicedata: data.devicedata,
+        deviceDescription: data.deviceDescription,
         image: hostingImg.data.data.display_url,
       };
       //
@@ -47,7 +47,7 @@ const UpdateMenu = () => {
         // show success popup
         reset();
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: `Item is updated successfully!`,
           showConfirmButton: false,
@@ -119,10 +119,10 @@ const UpdateMenu = () => {
               <span className="label-text">Details</span>
             </label>
             <textarea
-              {...register("devicedata")}
+              {...register("deviceDescription")}
               className="textarea textarea-bordered h-24"
               placeholder="device details"
-              defaultValue={item.devicedata}
+              defaultValue={item.deviceDescription}
             ></textarea>
           </div>
 

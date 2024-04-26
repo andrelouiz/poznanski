@@ -15,13 +15,13 @@ const Footer = () => {
         </aside>
         <nav>
           <header className="footer-title text-black">Useful links</header>
-          <a href="/menu" className="link link-hover">About Us</a>
-          <a href="/menu" className="link link-hover">CCNA Training</a>
-          <a href="/menu" className="link link-hover">FAQ</a>
+          <a href="/AboutUs" className="link link-hover">About Us</a>
+          <a href="/CCNA" className="link link-hover">CCNA Training</a>
+          <a href="/FAQ" className="link link-hover">FAQ</a>
         </nav>
         <nav>
           <header className="footer-title">Main Menu</header>
-          <a href="/menu" className="link link-hover">Home</a>
+          <a href="/" className="link link-hover">Home</a>
           <a href="/menu" className="link link-hover">Offers</a>
         </nav>
         <nav>

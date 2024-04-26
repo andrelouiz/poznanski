@@ -7,7 +7,7 @@ import useCart from "../hooks/useCart";
 import axios from 'axios';
 
 const Cards = ({ item }) => {
-  const { name, image, price, devicedeta, _id } = item;
+  const { name, image, price, deviceDescription, _id } = item;
 
   const {user} = useContext(AuthContext);
   const [cart, refetch] = useCart();
@@ -76,16 +76,16 @@ const Cards = ({ item }) => {
         }`}
         onClick={handleHeartClick}
       >
-        <FaHeart className="w-5 h-5 cursor-pointer" />
+        <FaHeart className="w-5 h-5 " />
       </div>
       <Link to={``}>
         <figure>
-          <img src={item.image} alt="Shoes" className="hover:scale-105 transition-all duration-300 md:h-72" />
+          <img src={item.image} alt="device" className="hover:scale-105 transition-all duration-300 md:h-72" />
         </figure>
       </Link>
       <div className="card-body">
        <Link to={``}><h2 className="card-title">{item.name}!</h2></Link>
-        <p>{`${item.description}`}</p>
+        <p>{`${item.deviceDescription}`}</p>
         <div className="card-actions justify-between items-center mt-2">
           <h5 className="font-semibold">
             <span className="text-sm text-red">$ </span> {item.price}

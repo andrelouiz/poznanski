@@ -5,16 +5,19 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
     './pages/**/*.{html,js}',
   ],
+  
   theme: {
     extend: {
       colors: {
         "green": "#FF6969",
         "red": "#FF6868",
         "secondary": "#555",
-        "prigmayBG": "#FCFCFC"
+        "prigmayBG": "#FCFCFC",
+        "grey": "#111827",
+        "transparent": 'transparent',
+        
       }
     },
   },
   plugins: [require("daisyui")],
 }
-

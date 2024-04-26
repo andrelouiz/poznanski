@@ -17,7 +17,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || "https://poznanski-server.onrender.com";
+  const from = location.state?.from?.pathname || "https://poznanski-server.onrender.com/";
 
   const {
     register,
@@ -45,7 +45,7 @@ const Signup = () => {
               .then((response) => {
                 console.log(response)
                 alert("Signin successful!");
-                navigate(from, { replace: true });
+                navigate("/", { replace: true });
               });
           })
           .catch((error) => {
