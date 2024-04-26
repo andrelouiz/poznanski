@@ -15,15 +15,10 @@ const menuSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    deviceDescription: {
-        type: String,
-        trim: true,
-        required: true,
-        minlength: 3,
-    }
+    deviceDescription: String,
 });
 
 
-const Menu = mongoose.model('menus', menuSchema);
+const Menu = mongoose.model('menu', menuSchema);
 
 module.exports = Menu;
