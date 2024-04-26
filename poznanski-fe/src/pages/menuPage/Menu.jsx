@@ -94,8 +94,9 @@ const Menu = () => {
             <h2 className="md:text-5xl text-4xl font-bold md:leading-snug leading-snug">
              Top Quality  <span className="text-red">Network Devices</span>
             </h2>
+            <div className={`text-${isDarkMode ? 'white' : 'black'}`}>Browse the best devices on the market for your datacenter</div>
             <p className="text-xl md:w-4/5 mx-auto">
-            <p className={`text-${isDarkMode ? 'white' : 'black'}`}>Browse the best devices on the market for your datacenter</p>
+           
               
             </p>
           </div>

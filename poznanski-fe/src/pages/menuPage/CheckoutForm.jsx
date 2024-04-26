@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import {  FaPaypal } from "react-icons/fa";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/ThemeContext";
@@ -141,14 +140,6 @@ const CheckoutForm = ({price, cart}) => {
       {cardError ? <p className="text-red text-xs italic">{cardError}</p> : ''}
      
       <div className="mt-5 text-center">
-      <hr />
-      <button
-          type="submit"
-    
-          className="btn  btn-sm mt-5 bg-orange-500 text-white"
-        >
-         <FaPaypal /> Pay with Paypal
-        </button>
       </div>
       </div>
     </div>

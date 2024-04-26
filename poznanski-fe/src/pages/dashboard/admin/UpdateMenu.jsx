@@ -37,7 +37,7 @@ const UpdateMenu = () => {
         name: data?.name,
         category: data.category,
         price: parseFloat(data.price),
-        deviceDescription: data.deviceDescription,
+        devicedata: data?.devicedata,
         image: hostingImg.data.data.display_url,
       };
       //
@@ -96,6 +96,7 @@ const UpdateMenu = () => {
                 <option value="switch">Switches</option>
                 <option value="firewall">Firewalls</option>
                 <option value="popular">Popular</option>
+                <option value="used">Used Part</option>
               </select>
             </div>
 
@@ -119,10 +120,10 @@ const UpdateMenu = () => {
               <span className="label-text">Details</span>
             </label>
             <textarea
-              {...register("deviceDescription")}
+              {...register("devicedata")}
               className="textarea textarea-bordered h-24"
               placeholder="device details"
-              defaultValue={item.deviceDescription}
+              defaultValue={item.devicedata}
             ></textarea>
           </div>
 

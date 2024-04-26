@@ -85,7 +85,6 @@ const Cards = ({ item }) => {
       </Link>
       <div className="card-body">
        <Link to={``}><h2 className="card-title">{item.name}!</h2></Link>
-        <p>{`${item.deviceDescription}`}</p>
         <div className="card-actions justify-between items-center mt-2">
           <h5 className="font-semibold">
             <span className="text-sm text-red">$ </span> {item.price}

@@ -14,7 +14,125 @@
         "image": "https://i.ibb.co/mbj8wGc/img3.png",
         "category": "popular",
         "price": 24500
+    },
+    {
+    "_id": "1a2b3c4d5e6f",
+    "name": "Juniper SRX300",
+    "deviceDescription": "The Juniper SRX300 is a versatile and secure router suitable for small to mid-sized networks.",
+    "image": "https://i.ibb.co/MNyCxsv/switch.png",
+    "category": "router",
+    "price": 32000
+    },
+    {
+    "_id": "6d7e8f9a0b1c",
+    "name": "Cisco ISR 4000 Series",
+    "deviceDescription": "The Cisco ISR 4000 Series offers high performance and reliability for enterprise-level routing.",
+    "image": "https://i.ibb.co/yqZz6mb/cisco-isr-4000.png",
+    "category": "router",
+    "price": 75000
+    },
+    {
+    "_id": "2b3c4d5e6f7a",
+    "name": "D-Link DIR-878",
+    "deviceDescription": "The D-Link DIR-878 is a high-speed wireless router suitable for home and small office use.",
+    "image": "https://i.ibb.co/8bwqbGs/img4.png",
+    "category": "router",
+    "price": 4500
+    },
+    {
+    "_id": "3c4d5e6f7a8b",
+    "name": "Juniper SRX1500",
+    "deviceDescription": "The Juniper SRX1500 is an advanced security appliance offering high-performance firewall capabilities.",
+    "image": "https://i.ibb.co/MNyCxsv/switch.png",
+    "category": "firewall",
+    "price": 98000
+    },
+    {
+    "_id": "4d5e6f7a8b9c",
+    "name": "Cisco ASA 5516-X",
+    "deviceDescription": "The Cisco ASA 5516-X is a next-generation firewall offering comprehensive security features for mid-sized businesses.",
+    "image": "https://i.ibb.co/Gd3sWkf/cisco-asa-5516x.png",
+    "category": "firewall",
+    "price": 56000
+    },
+    {
+    "_id": "5e6f7a8b9c1d",
+    "name": "D-Link DFL-1660",
+    "": "The D-Link DFL-1660 is a reliable firewall solution suitable for small and medium enterprises.",
+    "image": "https://i.ibb.co/g6Mx0yk/dlink-dfl-1660.png",
+    "category": "firewall",
+    "price": 29000
+    },
+    {
+    "_id": "6f7a8b9c1d2e",
+    "name": "Juniper EX2300",
+    "deviceDescription": "The Juniper EX2300 is a compact and cost-effective Ethernet switch designed for enterprise deployments.",
+    "image": "https://i.ibb.co/SyH2chB/juniper-ex2300.png",
+    "category": "switch",
+    "price": 18000
+    },
+    {
+    "_id": "7a8b9c1d2e3f",
+    "name": "Cisco Catalyst 2960",
+    "deviceDescription": "The Cisco Catalyst 2960 is a reliable and scalable switch suitable for small to medium-sized networks.",
+    "image": "https://i.ibb.co/6H7jtfN/cisco-catalyst-2960.png",
+    "category": "switch",
+    "price": 28000
+    },
+    {
+    "_id": "8b9c1d2e3f4a",
+    "name": "D-Link DGS-1210",
+    "deviceDescription": "The D-Link DGS-1210 is a feature-rich Gigabit Ethernet switch suitable for small and medium businesses.",
+    "image": "https://i.ibb.co/G7VxTPX/dlink-dgs-1210.png",
+    "category": "switch",
+    "price": 8500
+    },
+    {
+    "_id": "9c1d2e3f4a5b",
+    "name": "Juniper QFX5100",
+    "deviceDescription": "The Juniper QFX5100 is a high-performance data center switch offering low latency and high availability.",
+    "image": "https://i.ibb.co/ypzhGqz/juniper-mx204-r.png",
+    "category": "switch",
+    "price": 135000
+    },
+    {
+    "_id": "1d2e3f4a5b6c",
+    "name": "Cisco RV260",
+    "deviceDescription": "The Cisco RV260 is a secure and reliable VPN router designed for small businesses.",
+    "image": "https://i.ibb.co/gwwzRDS/cisco-rv260.png",
+    "category": "router",
+    "price": 7500
+    },
+    {
+    "_id": "2e3f4a5b6c7d",
+    "name": "D-Link DSR-250",
+    "deviceDescription": "The D-Link DSR-250 is a high-performance VPN router suitable for small office environments.",
+    "image": "https://i.ibb.co/8bwqbGs/img4.png",
+    "category": "router",
+    "price": 4800
+    },
+    {
+    "_id": "3f4a5b6c7d8e",
+    "name": "Juniper MX240",
+    "deviceDescription": "The Juniper MX240 is a carrier-grade router offering high density and scalability for service provider networks.",
+    "image": "https://i.ibb.co/ypzhGqz/juniper-mx204-r.png",
+    "category": "router",
+    "price": 420000
+    },
+    {
+    "_id": "4a5b6c7d8e9f",
+    "name": "Cisco Firepower 1010",
+    "deviceDescription": "The Cisco Firepower 1010 is a compact and high-performance firewall suitable for small businesses and branch offices.",
+    "image": "https://i.ibb.co/ZKJWQf9/cisco-firepower-1010.png",
+    "category": "firewall",
+    "price": 19500
+    },
+    {
+    "_id": "5b6c7d8e9f0a",
+    "name": "D-Link DFL-870",
+    "deviceDescription": "The D-Link DFL-870 is a robust firewall appliance designed for securing medium to large enterprise networks.",
+    "image": "https://i.ibb.co/8bwqbGs/img4.png",
+    "category": "firewall"
     }
-   
 
 ]

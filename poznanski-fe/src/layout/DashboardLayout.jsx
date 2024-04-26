@@ -32,15 +32,9 @@ const sharedMenu = (
       </Link>
     </li>
     <li>
-      <Link to="/menu">
+      <Link to="/order">
       <FaLocationArrow />
         Orders Tracking
-      </Link>
-    </li>
-    <li>
-      <Link to="/menu">
-      <FaQuestionCircle />
-        Customer Support
       </Link>
     </li>
   </>
