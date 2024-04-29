@@ -14,7 +14,7 @@ app.use(express.json());
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@poznanski.ftng9tc.mongodb.net/poznanski?retryWrites=true&w=majority&appName=poznanski`)
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@poznanski.wtv42cv.mongodb.net/poznanski?retryWrites=true&w=majority&appName=poznanski`)
   .then(console.log("Mongodb connected successfully!"))
   .catch((error) => console.log("Error connecting to MongoDB: " + error));
 
@@ -36,7 +36,6 @@ const cartsRoutes = require("./api/routes/cartRoutes");
 const usersRoutes = require("./api/routes/userRoutes");
 const paymentRoutes = require("./api/routes/paymentRoutes");
 const adminStats = require('./api/routes/adminStats');
-const orderStats = require('./api/routes/orderStats');
 const orderStats = require('./api/routes/orderStats');
 app.use("/menu", menuRoutes);
 app.use("/carts", cartsRoutes);
