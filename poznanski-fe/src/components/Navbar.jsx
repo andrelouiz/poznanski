@@ -39,12 +39,12 @@ const Navbar = () => {
 
   const navItems = (
     <>
-      <li><a href="/" className={`text-${isDarkMode ? 'dark' : 'black'}`}>Home</a></li>
-      <li><a href="/menu" className={`text-${isDarkMode ? 'dark' : 'black'}`}>Shop Devices</a></li>
+      <li><a href="/" className={`text-${isDarkMode ? 'dark' : ''}`}>Home</a></li>
+      <li><a href="/menu" className={`text-${isDarkMode ? 'dark' : ''}`}>Shop Devices</a></li>
 
       <li tabIndex={0}>
         <details>
-          <summary className={`text-${isDarkMode ? 'dark' : 'black'}`}>Services</summary>
+          <summary className={`text-${isDarkMode ? 'dark' : ''}`}>Services</summary>
           <ul className={`p-2 ${isDarkMode ? 'dark' : ''}`}>
             <li><a href="/AboutUs" className={`text-${isDarkMode ? 'text-white' : 'white'}`}>About Us</a></li>
             <li><a href="/FAQ" className={`text-${isDarkMode ? 'white' : 'white'}`}>FAQ</a></li>
@@ -52,13 +52,13 @@ const Navbar = () => {
           </ul>
         </details>
       </li>
-      <li><a href="/order" className={`text-${isDarkMode ? 'dark' : 'black'}`}>Track Order</a></li>
+      <li><a href="/order" className={`text-${isDarkMode ? 'dark' : ''}`}>Track Order</a></li>
     </>
   );
 
   return (
     <header className={`max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out ${isDarkMode ? "dark" : ""}`}>
-      <div className={`navbar xl:px-24 ${isSticky ? "shadow-md bg-base-100 transition-all duration-300 ease-in-out text-white" : "white"}`} >
+      <div className={`navbar xl:px-24 ${isSticky && !isDarkMode? "shadow-md bg-base-100 transition-all duration-300 ease-in-out text-white" : "white"}`} >
         <div className="navbar-start">
           <button className="btn btn-square btn-ghost lg:hidden" onClick={toggleMenu}>
             {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}

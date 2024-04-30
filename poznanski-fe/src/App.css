@@ -28,11 +28,7 @@ header, nav{
   @apply  text-4xl md:text-5xl md:leading-snug font-bold my-2;
 }
 
-.slick-slider {
-  /* background-color: aquamarine; */
-  /* padding-left: 30px; */
-  /* height: 480px !important; */
-}
+
  
 
 .slick-prev {
