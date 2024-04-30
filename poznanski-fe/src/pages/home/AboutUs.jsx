@@ -18,10 +18,9 @@ const AboutUs = () => {
                     <div className="text-left md:w-4/5">
                         <p className="subtitle">Why Choose Us</p>
                         <h2 className="title">Driven by Innovation, Committed to Excellence</h2>
-                        <p className="my-5 text-secondary leading-[30px]" >
+                        <p className={`my-5 text-secondary leading-[30px] text-${isDarkMode ? 'white' : 'black'}`}> 
                             At Poznanski, we are committed to delivering state-of-the-art network devices that empower modern businesses and enthusiasts alike. Our innovative solutions are designed to enhance efficiency and security across your network infrastructure.
                         </p>
-                        
                         <Link mailto="customerservice@poznanski.com"><button className="bg-red mt-9 font-semibold btn text-white px-8 py-3 flex justify-between rounded-full">
                             Contact Us
                         </button></Link>
@@ -31,10 +30,11 @@ const AboutUs = () => {
                     <div className="grid sm:grid-cols-2 grid-cols-1 gap-8 bg-transparent items-center ">
                         {
                             teamHighlights.map((highlight) => (
-                                <div key={highlight.id} className="shadow-md rounded-lg py-5 px-4 text-center space-y-1 text-red transition-all duration-200 bg-grey">
+                                <div key={highlight.id} className="shadow-md rounded-lg py-5 px-4 text-center space-y-1 text-red transition-all duration-200 bg-transparent">
                                     <img src={highlight.img} alt="" className="mx-auto"/>
                                     <h5 className="pt-3 font-semibold">{highlight.title}</h5>
-                                    <p className="text-white">{highlight.des}</p>
+                                    <p className={`my-5 text-secondary text-${isDarkMode ? 'white' : 'black'}`}> 
+                                    {highlight.des}</p>
                                 </div>
                             ))
                         }

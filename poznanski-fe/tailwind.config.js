@@ -10,11 +10,12 @@ export default {
     extend: {
       colors: {
         "green": "#FF6969",
-        "red": "#FF6868",
-        "secondary": "#555",
-        "prigmayBG": "#FCFCFC",
-        "grey": "#191b24",
+        "red": "#991b1b",
+        "secondary": "#292524",
+        "prigmayBG": "#292524",
+        "grey": "#27272a",
         "transparent": 'transparent',
+        "white": "#e5e7eb"
         
       }
     },

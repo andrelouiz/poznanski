@@ -16,26 +16,23 @@ const teamHighlights = [
     {id: 11, title: "How to Expand Wireless Coverage with D-Link Mesh Wi-Fi Systems?", des: "Explore strategies for extending wireless coverage and eliminating dead zones using D-Link Mesh Wi-Fi systems, which provide seamless connectivity and scalability for home and business environments.", img: "/images/home/faq.png"},
     {id: 12, title: "What are the Key Features of Cisco Nexus Data Center Switches?", des: "Gain insights into the advanced features and capabilities of Cisco Nexus data center switches, including high availability, virtualization support, and deep visibility for network monitoring and management.", img: "/images/home/faq.png"},
 ];
-
 const FAQ = () => {
     const { isDarkMode } = useTheme();
     return (
-        <div className={`max-w-screen-2xl container mx-auto xl:px-24 py-40 bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100% ${isDarkMode ? 'dark' : ''}`}>
-        <div className="w-full">
-            <div className="grid grid-cols-4 gap-8 bg-transparent items-center">
-                {
-                    teamHighlights.map((highlight) => (
-                        <div key={highlight.id} className="shadow-md rounded-lg flex flex-col justify-between py-5 px-4 text-center space-y-1 text-red transition-all duration-200 bg-grey h-full">
-                        <img src={highlight.img} alt="" className="mx-auto"/>
-                            <h5 className="pt-3 font-semibold">{highlight.title}</h5>
-                            <p className="text-white">{highlight.des}</p>
-                        </div>
-                    ))
-                }
-            </div>
+      <div className={`max-w-screen-2xl container mx-auto xl:px-24 py-16 md:py-24 bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100% ${isDarkMode ? 'dark' : ''}`}>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+          {
+            teamHighlights.map((highlight) => (
+              <div key={highlight.id} className="bg-grey shadow-md rounded-lg flex flex-col justify-between py-5 px-4 text-center transition-all duration-200">
+                <img src={highlight.img} alt={highlight.title} className="mx-auto mb-4 md:mb-6 max-w-full h-auto" />
+                <h5 className="font-semibold text-lg md:text-xl lg:text-lg xl:text-xl mb-2">{highlight.title}</h5>
+                <p className="text-sm md:text-base lg:text-sm xl:text-sm">{highlight.des}</p>
+              </div>
+            ))
+          }
         </div>
-    </div>
+      </div>
     );
-};
-
-export default FAQ;
+  };
+  
+  export default FAQ;

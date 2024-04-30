@@ -112,7 +112,7 @@ const Login = () => {
 
             {/* show errors */}
             {errorMessage ? (
-              <p className="text-red text-xs italic">
+              <p className="text-#f87171 text-xs italic">
                 Provide a correct username & password.
               </p>
             ) : (
@@ -123,7 +123,7 @@ const Login = () => {
             <div className="form-control mt-4">
               <input
                 type="submit"
-                className="btn bg-red text-white"
+                className="btn bg-#f87171 text-white"
                 value="Login"
               />
             </div>
