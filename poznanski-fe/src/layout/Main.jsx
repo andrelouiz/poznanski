@@ -16,7 +16,7 @@ const Main = () => {
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
   return (
-    <div className={`bg-${isDarkMode ? "dark" : "primaryBG"}`}>
+    <div className={`bg-${isDarkMode ? "dark" : ""}`}>
       {loading ? (
         <LoadingSpinner />
       ) : (
