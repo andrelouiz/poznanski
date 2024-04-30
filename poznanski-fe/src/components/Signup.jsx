@@ -17,7 +17,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || "https://poznanski-server.onrender.com/";
+  const from = location.state?.from?.pathname || "https://poznanski.onrender.com/";
 
   const {
     register,
@@ -41,7 +41,7 @@ const Signup = () => {
               email: data.email,
             };
 
-            axiosPublic.post("https://poznanski-server.onrender.com/users", userInfo)
+            axiosPublic.post("https://poznanski.onrender.com/users", userInfo)
               .then((response) => {
                 console.log(response)
                 alert("Signin successful!");
@@ -66,7 +66,7 @@ const Signup = () => {
           email: result.user?.email,
           name: result.user?.displayName
       }
-      axiosPublic.post('https://poznanski-server.onrender.com/users', userInfo)
+      axiosPublic.post('https://poznanski.onrender.com/users', userInfo)
       .then(res =>{
           console.log(res.data);
           navigate('/');

@@ -24,7 +24,7 @@ const CheckoutForm = ({price, cart}) => {
       return;
     }
   
-    axiosSecure.post('https://poznanski-server.onrender.com/create-payment-intent', { price })
+    axiosSecure.post('https://poznanski.onrender.com/create-payment-intent', { price })
       .then(res => {
         console.log(res.data.clientSecret);
         console.log(price);
@@ -90,7 +90,7 @@ const CheckoutForm = ({price, cart}) => {
         status: "order pending", itemsName: cart.map(item => item.name), cartItems: cart.map(item => item._id), menuItems: cart.map(item => item.menuItemId)}
 
       // send payment info
-      axiosSecure.post('https://poznanski-server.onrender.com/payments', paymentInfo)
+      axiosSecure.post('https://poznanski.onrender.com/payments', paymentInfo)
       .then( res => {
         console.log(res.data)
         if(res.data){

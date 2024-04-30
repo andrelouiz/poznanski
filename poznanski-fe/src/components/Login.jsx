@@ -34,7 +34,7 @@ const Login = () => {
           email: result.user?.email,
           name: result.user?.displayName
       }
-      axiosPublic.post('https://poznanski-server.onrender.com/users', userInfo)
+      axiosPublic.post('https://poznanski.onrender.com/users', userInfo)
       .then(res =>{
           console.log(res.data);
           navigate('/');
@@ -60,7 +60,7 @@ const Login = () => {
           email: result.user?.email,
           name: result.user?.displayName
       }
-      axiosPublic.post('https://poznanski-server.onrender.com/users', userInfo)
+      axiosPublic.post('https://poznanski.onrender.com/users', userInfo)
       .then(res =>{
           console.log(res.data);
           alert("Login successful!");

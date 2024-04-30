@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-    baseURL: 'https://poznanski-server.onrender.com/'
+    baseURL: 'https://poznanski.onrender.com/'
 })
 
 const useAxiosSecure = () => {

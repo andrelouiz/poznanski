@@ -35,7 +35,7 @@ const AddMenu = () => {
           image: hostingImg.data.data.display_url
       }
       // 
-      const menuRes = await axiosSecure.post('https://poznanski-server.onrender.com/menu', menuItem);
+      const menuRes = await axiosSecure.post('https://poznanski.onrender.com/menu', menuItem);
       console.log(menuRes)
       if(menuRes.status === 200){
           // show success popup

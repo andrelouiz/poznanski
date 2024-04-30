@@ -10,13 +10,13 @@ const Users = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await axiosSecure.get('https://poznanski-server.onrender.com/users');
+            const res = await axiosSecure.get('https://poznanski.onrender.com/users');
             return res.data;
         }
     })
 
     const handleMakeAdmin = user =>{
-      axiosSecure.patch(`https://poznanski-server.onrender.com/users/admin/${user._id}`)
+      axiosSecure.patch(`https://poznanski.onrender.com/users/admin/${user._id}`)
       .then(res =>{
           console.log(res.data)
           Swal.fire({
@@ -42,7 +42,7 @@ const Users = () => {
     }).then((result) => {
         if (result.isConfirmed) {
 
-            axiosSecure.delete(`https://poznanski-server.onrender.com/users/${user._id}`)
+            axiosSecure.delete(`https://poznanski.onrender.com/users/${user._id}`)
                 .then(res => {
                   console.log(res)
                   Swal.fire({

@@ -20,7 +20,7 @@ const Modal = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || "https://poznanski-server.onrender.com";
+  const from = location.state?.from?.pathname || "https://poznanski.onrender.com";
 
   //react hook form
   const {
@@ -42,7 +42,7 @@ const Modal = () => {
           email: result.user?.email,
           name: result.user?.displayName
       }
-      axiosPublic.post('https://poznanski-server.onrender.com/users', userInfo)
+      axiosPublic.post('https://poznanski.onrender.com/users', userInfo)
       .then(res =>{
           console.log(res.data);
         
@@ -70,7 +70,7 @@ const Modal = () => {
         email: result.user?.email,
         name: result.user?.displayName,
       };
-      axiosPublic.post("https://poznanski-server.onrender.com/users", userInfo).then((res) => {
+      axiosPublic.post("https://poznanski.onrender.com/users", userInfo).then((res) => {
         console.log(res.data);
         navigate("/");
         closeModal();

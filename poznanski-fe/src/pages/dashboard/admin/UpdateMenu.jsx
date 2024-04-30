@@ -41,7 +41,7 @@ const UpdateMenu = () => {
         image: hostingImg.data.data.display_url,
       };
       //
-      const menuRes = await axiosSecure.patch(`https://poznanski-server.onrender.com/menu/${item._id}`, menuItem);
+      const menuRes = await axiosSecure.patch(`https://poznanski.onrender.com/menu/${item._id}`, menuItem);
       console.log(menuRes);
       if (menuRes.status === 200) {
         // show success popup

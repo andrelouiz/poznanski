@@ -37,7 +37,7 @@ const Popular = () => {
   const slider = React.useRef(null);
 
   useEffect(() => {
-    fetch("https://poznanski-server.onrender.com/menu")
+    fetch("https://poznanski.onrender.com/menu")
       .then((res) => res.json())
       .then((data) => {
         const specials = data.filter((item) => item.category === "popular");
@@ -47,11 +47,11 @@ const Popular = () => {
   }, []);
   const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
-    initialSlide: 1,
+    initialSlide: 3,
     responsive: [
       {
         breakpoint: 1024,

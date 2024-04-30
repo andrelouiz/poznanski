@@ -12,7 +12,7 @@ const ManageItems = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://poznanski-server.onrender.com/menu");
+        const response = await fetch("https://poznanski.onrender.com/menu");
         const data = await response.json();
         setMenu(data); // Set the fetched data into state
       } catch (error) {
@@ -43,7 +43,7 @@ const ManageItems = () => {
     });
 
     if (result.isConfirmed) {
-      await axiosSecure.delete(`https://poznanski-server.onrender.com/menu/${item._id}`);
+      await axiosSecure.delete(`https://poznanski.onrender.com/menu/${item._id}`);
       const newMenu = menu.filter(m => m._id !== item._id);
       setMenu(newMenu);
       Swal.fire({

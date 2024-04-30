@@ -10,7 +10,7 @@ const useAdmin = () => {
         queryKey: [user?.email, 'isAdmin'],
         enabled: ! loading,
         queryFn: async () => {
-            const res = await axiosSecure.get(`https://poznanski-server.onrender.com/users/admin/${user.email}`);
+            const res = await axiosSecure.get(`https://poznanski.onrender.com/users/admin/${user.email}`);
             console.log(res.data);
             return res.data?.admin;
         }

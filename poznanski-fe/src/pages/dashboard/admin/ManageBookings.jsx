@@ -16,7 +16,7 @@ const ManageBookings = () => {
     enabled: !loading,
     queryFn: async () => {
       const res = await fetch(
-        `https://poznanski-server.onrender.com/payments/all`,
+        `https://poznanski.onrender.com/payments/all`,
         {
           headers: {
             authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ const ManageBookings = () => {
     // confirm order
     const confiremedOrder = async(item) => {
       console.log(item)
-    await  axiosSecure.patch(`https://poznanski-server.onrender.com/payments/${item._id}`)
+    await  axiosSecure.patch(`https://poznanski.onrender.com/payments/${item._id}`)
       .then(res =>{
           console.log(res.data)
           Swal.fire({

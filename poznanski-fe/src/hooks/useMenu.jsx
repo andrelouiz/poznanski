@@ -8,7 +8,7 @@ const useMenu = () => {
     const {data: menu = [], isPending: loading, refetch} = useQuery({
         queryKey: ['menu'], 
         queryFn: async() =>{
-            const res = await axiosPublic.get('https://poznanski-server.onrender.com/');
+            const res = await axiosPublic.get('https://poznanski.onrender.com/');
             console.log(res)
             return res.data;
         }

@@ -15,7 +15,7 @@ const Order = () => {
     enabled: !loading,
     queryFn: async () => {
       const res = await fetch(
-        `https://poznanski-server.onrender.com/payments?email=${user?.email}`,
+        `https://poznanski.onrender.com/payments?email=${user?.email}`,
         {
           headers: {
             authorization: `Bearer ${token}`,
