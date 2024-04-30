@@ -14,9 +14,11 @@ app.use(express.json());
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@poznanski.wtv42cv.mongodb.net/?retryWrites=true&w=majority&appName=poznanski`)
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@@poznanski.wtv42cv.mongodb.net/?retryWrites=true&w=majority&appName=poznanski`)
   .then(console.log("Mongodb connected successfully!"))
   .catch((error) => console.log("Error connecting to MongoDB: " + error));
+
+
 
 // jwt authentication
 
