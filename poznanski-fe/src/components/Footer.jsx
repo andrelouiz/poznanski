@@ -14,24 +14,24 @@ const Footer = () => {
           </p>
         </aside>
         <nav>
-          <header className="footer-title text-black">Useful links</header>
+          <header className={`footer-title text-${isDarkMode ? 'dark' : ''}`}>Useful links</header>
           <a href="/AboutUs" className="link link-hover">About Us</a>
           <a href="/CCNA" className="link link-hover">CCNA Training</a>
           <a href="/FAQ" className="link link-hover">FAQ</a>
         </nav>
         <nav>
-          <header className="footer-title">Main Menu</header>
+          <header className={`footer-title text-${isDarkMode ? 'dark' : ''}`}>Main Menu</header>
           <a href="/" className="link link-hover">Home</a>
           <a href="/menu" className="link link-hover">Offers</a>
         </nav>
         <nav>
-          <header className="footer-title">Contact Us</header>
+          <header className={`footer-title text-${isDarkMode ? 'dark' : ''}`}>Contact Us</header>
           <a href= "mailto: customerservice@poznanski.com"> customerservice@poznanski.com</a>
-          <a className="link link-hover">+48 555 777 888</a>
+          <a href="tel:+48 555 777 888"> +48 555 777 888</a>
         </nav>
       </footer>
         <hr />
-      <footer  className={`footer items-center xl:px-24 px-4 py-4 mt-2 ${
+      <footer  className={`footer-title footer items-center xl:px-24 px-4 py-4 mt-2 ${
           isDarkMode ? "dark" : "" // Apply dark mode class
         }`}>
         <aside className="items-center grid-flow-col">

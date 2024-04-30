@@ -75,8 +75,8 @@ const Order = () => {
                         <td>{item.status}</td>
                         <td>
                           <button className="btn btn-sm border-none text-orange-400 bg-transparent">
-                            Contact
-                          </button>
+                          <a href={`mailto:customerservice@poznanski.com?subject=Transaction ID: ${item.transitionId}`}>
+                           Contact </a></button>
                         </td>
                       </tr>
                     ))}

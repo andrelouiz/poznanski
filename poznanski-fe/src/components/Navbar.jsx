@@ -57,8 +57,9 @@ const Navbar = () => {
   );
 
   return (
-    <header className={`max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out ${isDarkMode ? "dark" : ""}`}>
-      <div className={`navbar xl:px-24 ${isSticky && !isDarkMode? "shadow-md bg-base-100 transition-all duration-300 ease-in-out text-white" : "white"}`} >
+    <header className={`max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out ${isDarkMode ? "bg-black" : ""}`}>
+    <div className={`navbar xl:px-24 ${isSticky && !isDarkMode ? "shadow-md bg-base-100 transition-all duration-300 ease-in-out text-white" : ""}`} >
+  
         <div className="navbar-start">
           <button className="btn btn-square btn-ghost lg:hidden" onClick={toggleMenu}>
             {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}

@@ -11,7 +11,7 @@ const CCNA = () => {
                     <div className="text-left mx-11 md:w-4/5">
                         <p className="subtitle">CCNA training</p>
                         <h2 className="title">Learn CCNA with JeremyIT</h2>
-                        <p className="my-5 text-secondary leading-[30px]" >                
+                        <p className={`my-5 text-secondary leading-[30px] text-${isDarkMode ? 'white' : 'black'}`} >                
                         Studying for the Cisco Certified Network Associate (CCNA) certification opens doors to a world of networking expertise. CCNA training equips learners with the fundamental knowledge and practical skills needed to design, implement, and troubleshoot network infrastructure. Whether you're delving into the basics of networking or seeking to advance your career in IT, CCNA offers a comprehensive curriculum covering topics such as network fundamentals, routing and switching, security, automation, and more.
                         </p>
                         

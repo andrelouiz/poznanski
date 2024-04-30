@@ -61,7 +61,7 @@ const UpdateMenu = () => {
   return (
     <div className="w-full md:w-[870px] mx-auto px-4">
       <h2 className="text-2xl font-semibold my-4">
-        Update <span className="text-green">Menu Item</span>
+        Update <span className="text-red">Menu Item</span>
       </h2>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>

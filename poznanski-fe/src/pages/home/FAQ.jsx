@@ -23,7 +23,7 @@ const FAQ = () => {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
           {
             teamHighlights.map((highlight) => (
-              <div key={highlight.id} className="bg-grey shadow-md rounded-lg flex flex-col justify-between py-5 px-4 text-center transition-all duration-200">
+              <div key={highlight.id} className={`bg-grey shadow-md rounded-lg flex flex-col justify-between py-5 px-4 text-center transition-all duration-200 ${isDarkMode ? 'bg-opacity-20' : ''}`}>
                 <img src={highlight.img} alt={highlight.title} className="mx-auto mb-4 md:mb-6 max-w-full h-auto" />
                 <h5 className="font-semibold text-lg md:text-xl lg:text-lg xl:text-xl mb-2">{highlight.title}</h5>
                 <p className="text-sm md:text-base lg:text-sm xl:text-sm">{highlight.des}</p>

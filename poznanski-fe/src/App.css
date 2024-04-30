@@ -10,7 +10,7 @@ body{
 
 .dark {
   background: black;
-  color: #ffff;
+  color: #d82222;
 }
 .themediv{
   z-index: 20001;
@@ -58,7 +58,8 @@ header, nav{
 }
 
 .footer-title{
-  color: black !important;
+  font-weight: bold;
+
 }
 
 .active{
