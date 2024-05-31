@@ -16,8 +16,7 @@ app.use(express.json());
 const startServer = async () => {
   try {
     await mongoose.connect(
-      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@poznanski.wtv42cv.mongodb.net/poznanski?retryWrites=true&w=majority&appName=poznanski`,
-      { useNewUrlParser: true, useUnifiedTopology: true }
+      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@poznanski.wtv42cv.mongodb.net/poznanski?retryWrites=true&w=majority&appName=poznanski`
     );
     console.log("Mongodb connected successfully!");
 
@@ -76,6 +75,7 @@ const startServer = async () => {
 
   } catch (error) {
     console.error("Error connecting to MongoDB: " + error);
+    setTimeout(startServer, 5000); // Retry connection after 5 seconds
   }
 };
 
