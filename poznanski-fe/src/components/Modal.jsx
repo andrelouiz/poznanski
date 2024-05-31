@@ -47,12 +47,10 @@ const Modal = () => {
           console.log(res.data);
         
       })
-        // console.log(user);
         alert("Login successful!");
         navigate("/");
         console.log("Modal Open:", isModalOpen);
         closeModal(); 
-        // ...
       })
       .catch((error) => {
         const errorMessage = error.message;

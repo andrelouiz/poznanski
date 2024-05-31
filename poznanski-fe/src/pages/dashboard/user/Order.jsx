@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../../hooks/ThemeContext";

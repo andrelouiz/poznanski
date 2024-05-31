@@ -4,11 +4,13 @@ import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../contexts/AuthProvider";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import { useTheme } from "../hooks/ThemeContext";
 
 const Login = () => {
   const axiosPublic = useAxiosPublic();
-  const [errorMessage, seterrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const { signUpWithGmail, login } = useContext(AuthContext);
+  const { isDarkMode } = useTheme();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,7 +20,8 @@ const Login = () => {
   //react hook form
   const {
     register,
-    handleSubmit, reset,
+    handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -27,7 +30,6 @@ const Login = () => {
     const password = data.password;
     login(email, password)
       .then((result) => {
-        // Signed in
         const user = result.user;
 
         const userInfo = {
@@ -39,14 +41,13 @@ const Login = () => {
           console.log(res.data);
           navigate('/');
       })
-        // console.log(user);
+
         alert("Login successful!");
         navigate('/');
-        // ...
       })
       .catch((error) => {
         const errorMessage = error.message;
-        seterrorMessage("Please provide valid email & password!");
+        setErrorMessage("Please provide valid email & password!");
       });
       reset()
 
@@ -70,24 +71,24 @@ const Login = () => {
   })
   };
   return (
-    <div className="max-w-md bg-white shadow w-full mx-auto flex items-center justify-center my-20">
+    <div className={`max-w-md ${isDarkMode ? "bg-black" : "bg-white"} shadow w-full mx-auto flex items-center justify-center my-20`}>
     <div className="mb-5">
     <form
             className="card-body"
             method="dialog"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <h3 className="font-bold text-lg">Please Login!</h3>
+            <h3 className={`font-bold text-lg ${isDarkMode ? "text-white" : "text-black"}`}>Please Login!</h3>
 
             {/* email */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className={`label-text ${isDarkMode ? "text-white" : "text-black"}`}>Email</span>
               </label>
               <input
                 type="email"
                 placeholder="email"
-                className="input input-bordered"
+                className={`input input-bordered ${isDarkMode ? "text-white" : "text-black"}`}
                 {...register("email")}
               />
             </div>
@@ -95,16 +96,16 @@ const Login = () => {
             {/* password */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Password</span>
+                <span className={`label-text ${isDarkMode ? "text-white" : "text-black"}`}>Password</span>
               </label>
               <input
                 type="password"
                 placeholder="password"
-                className="input input-bordered"
+                className={`input input-bordered ${isDarkMode ? "text-white" : "text-black"}`}
                 {...register("password", { required: true })}
               />
               <label className="label">
-                <a href="#" className="label-text-alt link link-hover mt-2">
+                <a href="#" className={`label-text-alt link link-hover mt-2 ${isDarkMode ? "text-white" : "text-black"}`}>
                   Forgot password?
                 </a>
               </label>
@@ -123,15 +124,15 @@ const Login = () => {
             <div className="form-control mt-4">
               <input
                 type="submit"
-                className="btn bg-#f87171 text-white"
+                className="bg-red mt-9 font-semibold btn text-white px-8 py-3 rounded-full"
                 value="Login"
               />
             </div>
 
     
 
-            <p className="text-center my-2">
-              Donot have an account?
+            <p className={`text-center my-2 ${isDarkMode ? "text-white" : "text-black"}`}>
+              Don't have an account?
               <Link to="/signup" className="underline text-red ml-1">
                 Signup Now
               </Link>
@@ -147,4 +148,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;
