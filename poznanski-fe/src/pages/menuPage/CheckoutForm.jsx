@@ -83,13 +83,16 @@ const CheckoutForm = ({ cart }) => {
       return;
     }
 
+    console.log('paymentIntent', paymentIntent);
+
     if (paymentIntent.status === "succeeded") {
       const transitionId = paymentIntent.id;
       setCardError(`Your transaction ID is: ${transitionId}`);
 
+      // Save payment info to server
       const paymentInfo = {
         email: user.email,
-        transitionId,
+        transitionId, // Corrected the property name to transitionId
         price,
         quantity: cart.length,
         status: "order pending",
@@ -98,6 +101,7 @@ const CheckoutForm = ({ cart }) => {
         menuItems: cart.map(item => item.menuItemId),
       };
 
+      // Send payment info
       axiosSecure.post('https://poznanski.onrender.com/payments', paymentInfo)
         .then(res => {
           if (res.data) {
