@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
@@ -9,10 +9,18 @@ const UpdateMenu = () => {
   const item = useLoaderData();
   console.log(item);
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+
+  // Set default values for the form
+  useEffect(() => {
+    setValue("name", item.name);
+    setValue("category", item.category);
+    setValue("price", item.price);
+    setValue("deviceDescription", item.deviceDescription);
+  }, [item, setValue]);
 
   // image hosting keys
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -21,36 +29,45 @@ const UpdateMenu = () => {
   // on submit form
   const onSubmit = async (data) => {
     try {
-      const formData = new FormData();
-      formData.append("image", data.image[0]);
+      let imageUrl = item.image; // Default to existing image URL
 
-      const hostingImg = await axiosPublic.post(image_hosting_api, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      if (data.image && data.image.length > 0) {
+        // If a new image is uploaded
+        const formData = new FormData();
+        formData.append("image", data.image[0]);
 
-      if (hostingImg.data.success) {
-        const menuItem = {
-          name: data.name,
-          category: data.category,
-          price: parseFloat(data.price),
-          devicedata: data.devicedata,
-          image: hostingImg.data.data.display_url,
-        };
+        const hostingImg = await axiosPublic.post(image_hosting_api, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
-        const menuRes = await axiosSecure.patch(`https://poznanski.onrender.com/menu/${item._id}`, menuItem);
-        if (menuRes.status === 200) {
-          reset();
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: `Item updated successfully!`,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          navigate("/dashboard/manage-items");
+        if (hostingImg.data.success) {
+          imageUrl = hostingImg.data.data.display_url;
+        } else {
+          throw new Error("Image upload failed");
         }
+      }
+
+      const menuItem = {
+        name: data.name || item.name,
+        category: data.category || item.category,
+        price: parseFloat(data.price) || item.price,
+        deviceDescription: data.deviceDescription || item.deviceDescription,
+        image: imageUrl,
+      };
+
+      const menuRes = await axiosSecure.patch(`https://poznanski.onrender.com/menu/${item._id}`, menuItem);
+      if (menuRes.status === 200) {
+        reset();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Item updated successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/dashboard/manage-items");
       }
     } catch (error) {
       console.error("Error submitting the form: ", error.response ? error.response.data : error.message);
@@ -78,7 +95,6 @@ const UpdateMenu = () => {
             <input
               type="text"
               placeholder="Device Name"
-              defaultValue={item.name}
               {...register("name", { required: true })}
               className="input input-bordered w-full"
             />
@@ -90,7 +106,6 @@ const UpdateMenu = () => {
                 <span className="label-text">Category*</span>
               </label>
               <select
-                defaultValue={item.category}
                 {...register("category", { required: true })}
                 className="select select-bordered w-full"
               >
@@ -113,7 +128,6 @@ const UpdateMenu = () => {
               <input
                 type="number"
                 placeholder="Price"
-                defaultValue={item.price}
                 {...register("price", { required: true })}
                 className="input input-bordered w-full"
               />
@@ -125,23 +139,31 @@ const UpdateMenu = () => {
               <span className="label-text">Details</span>
             </label>
             <textarea
-              {...register("devicedata")}
+              {...register("deviceDescription")}
               className="textarea textarea-bordered h-24"
               placeholder="Device details"
-              defaultValue={item.devicedata}
             ></textarea>
           </div>
 
+          {/* Display existing image */}
+          <div className="form-control w-full my-6">
+            <label className="label">
+              <span className="label-text">Current Image</span>
+            </label>
+            <img src={item.image} alt="Current device" className="w-48 h-48" />
+          </div>
+
+          {/* Image upload */}
           <div className="form-control w-full my-6">
             <input
-              {...register("image", { required: true })}
+              {...register("image")}
               type="file"
               className="file-input w-full max-w-xs"
             />
           </div>
 
           <button className="btn bg-red text-white px-6">
-            Update Item 
+            Update Item
           </button>
         </form>
       </div>
