@@ -19,7 +19,7 @@ const CheckoutForm = ({ cart }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Calculate total price from the cart
+    // Calculate total price from the cart!!
     if (cart.length > 0) {
       const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
       setTotalPrice(totalPrice);
