@@ -20,41 +20,47 @@ const UpdateMenu = () => {
 
   // on submit form
   const onSubmit = async (data) => {
-    // console.log(data);
-    // image upload to imgbb and then get an url
-    const imageFile = { image: data.image[0] };
-    const hostingImg = await axiosPublic.post(image_hosting_api, imageFile, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
+    try {
+      const formData = new FormData();
+      formData.append("image", data.image[0]);
 
-    // console.log(hostingImg.data);
+      const hostingImg = await axiosPublic.post(image_hosting_api, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-    if (hostingImg.data.success) {
-      // now send the menu item data to the server with the image url
-      const menuItem = {
-        name: data?.name,
-        category: data.category,
-        price: parseFloat(data.price),
-        devicedata: data?.devicedata,
-        image: hostingImg.data.data.display_url,
-      };
-      //
-      const menuRes = await axiosSecure.patch(`https://poznanski.onrender.com/menu/${item._id}`, menuItem);
-      console.log(menuRes);
-      if (menuRes.status === 200) {
-        // show success popup
-        reset();
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: `Item is updated successfully!`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        navigate("/dashboard/manage-items");
+      if (hostingImg.data.success) {
+        const menuItem = {
+          name: data.name,
+          category: data.category,
+          price: parseFloat(data.price),
+          devicedata: data.devicedata,
+          image: hostingImg.data.data.display_url,
+        };
+
+        const menuRes = await axiosSecure.patch(`https://poznanski.onrender.com/menu/${item._id}`, menuItem);
+        if (menuRes.status === 200) {
+          reset();
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `Item updated successfully!`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/dashboard/manage-items");
+        }
       }
+    } catch (error) {
+      console.error("Error submitting the form: ", error.response ? error.response.data : error.message);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Failed to update item",
+        text: error.response ? error.response.data.message : error.message,
+        showConfirmButton: true,
+      });
     }
   };
 
@@ -74,7 +80,6 @@ const UpdateMenu = () => {
               placeholder="Device Name"
               defaultValue={item.name}
               {...register("name", { required: true })}
-              required
               className="input input-bordered w-full"
             />
           </div>
@@ -122,7 +127,7 @@ const UpdateMenu = () => {
             <textarea
               {...register("devicedata")}
               className="textarea textarea-bordered h-24"
-              placeholder="device details"
+              placeholder="Device details"
               defaultValue={item.devicedata}
             ></textarea>
           </div>
