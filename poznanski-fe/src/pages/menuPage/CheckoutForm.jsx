@@ -5,6 +5,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/ThemeContext";
 
+//checkout
 const CheckoutForm = ({ cart }) => {
   const { isDarkMode } = useTheme();
   const stripe = useStripe();
