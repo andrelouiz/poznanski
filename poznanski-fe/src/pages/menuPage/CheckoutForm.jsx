@@ -5,32 +5,44 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/ThemeContext";
 
-const CheckoutForm = ({price, cart}) => {
+const CheckoutForm = ({ cart }) => {
   const { isDarkMode } = useTheme();
   const stripe = useStripe();
   const elements = useElements();
-  const [cardError, setcardError] = useState('');
+  const [cardError, setCardError] = useState('');
   const [clientSecret, setClientSecret] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0); // Updated state for total price
 
   const axiosSecure = useAxiosSecure();
-  const {user} = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
-  console.log(user.email)
+  useEffect(() => {
+    // Calculate total price from the cart
+    if (cart.length > 0) {
+      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      setTotalPrice(totalPrice);
+    } else {
+      setTotalPrice(0);
+    }
+  }, [cart]);
 
   useEffect(() => {
-    if (typeof price !== 'number' || price < 1) {
-      console.error('Invalid price value. Must be a number greater than or equal to 1.');
+    if (totalPrice <= 0) {
+      console.error('Invalid price value. Must be greater than 0.');
       return;
     }
-  
-    axiosSecure.post('https://poznanski.onrender.com/create-payment-intent', { price })
+
+    axiosSecure.post('https://poznanski.onrender.com/create-payment-intent', { price: totalPrice })
       .then(res => {
         console.log(res.data.clientSecret);
-        console.log(price);
+        console.log(totalPrice);
         setClientSecret(res.data.clientSecret);
       })
-  }, [price, axiosSecure]);
+      .catch(error => {
+        console.error('Error creating payment intent:', error);
+      });
+  }, [totalPrice, axiosSecure]);
 
   // handleSubmit btn click
   const handleSubmit = async (event) => {
@@ -56,9 +68,8 @@ const CheckoutForm = ({price, cart}) => {
 
     if (error) {
       console.log('[error]', error);
-      setcardError(error.message);
-    } else {
-      
+      setCardError(error.message);
+      return;
     }
 
     const {paymentIntent, error:confirmError} = await stripe.confirmCardPayment(
@@ -75,71 +86,79 @@ const CheckoutForm = ({price, cart}) => {
     );
 
     if(confirmError){
-      console.log(confirmError)
+      console.log(confirmError);
+      return;
     }
 
-    console.log('paymentIntent', paymentIntent)
+    console.log('paymentIntent', paymentIntent);
 
-    if(paymentIntent.status ==="succeeded") {
-      const transitionId =paymentIntent.id;
-      setcardError(`Your transitionId is: ${transitionId}`)
+    if(paymentIntent.status === "succeeded") {
+      const transitionId = paymentIntent.id;
+      setCardError(`Your transaction ID is: ${transitionId}`);
 
       // save payment info to server
-      const paymentInfo ={email: user.email, transitionId: paymentIntent.id, price, quantity: cart.length,
-        status: "order pending", itemsName: cart.map(item => item.name), cartItems: cart.map(item => item._id), menuItems: cart.map(item => item.menuItemId)}
+      const paymentInfo = {
+        email: user.email,
+        transitionId,
+        price: totalPrice,
+        quantity: cart.length,
+        status: "order pending",
+        itemsName: cart.map(item => item.name),
+        cartItems: cart.map(item => item._id),
+        menuItems: cart.map(item => item.menuItemId),
+      };
 
       // send payment info
       axiosSecure.post('https://poznanski.onrender.com/payments', paymentInfo)
-      .then( res => {
-        console.log(res.data)
-        if(res.data){
-          alert('Payment info sent successfully!')
-          navigate('/order')
-        }
-      })
+        .then(res => {
+          if (res.data) {
+            alert('Payment info sent successfully!');
+            navigate('/order');
+          }
+        })
+        .catch(error => {
+          console.error('Error saving payment info:', error);
+        });
     }
-
-
   };
+
   return (
     <div className="flex flex-col sm:flex-row justify-start items-start gap-8">
       <div className="md:w-1/2 space-y-3">
         <h4 className="text-lg font-semibold">Order Summary</h4>
-        <p>Total Price: PLN{price}</p>
+        <p>Total Price: PLN {totalPrice.toFixed(2)}</p> {/* Display total price */}
         <p>Number of Items: {cart.length}</p>
       </div>
       <div className={`md:w-1/3 w-full border space-y-5  card shrink-0 max-w-sm shadow-2xl bg-base-100 px-4 py-8 ${isDarkMode ? 'dark' : ''}`}>
         <h4 className="text-lg font-semibold">Process your Payment!</h4>
         <h5 className="font-medium">Credit/Debit Card</h5>
         <form onSubmit={handleSubmit}>
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: "16px",
-                color: "#424770",
-                "::placeholder": {
-                  color: "#aab7c4",
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: "16px",
+                  color: "#424770",
+                  "::placeholder": {
+                    color: "#aab7c4",
+                  },
+                },
+                invalid: {
+                  color: "#9e2146",
                 },
               },
-              invalid: {
-                color: "#9e2146",
-              },
-            },
-          }}
-        />
-        <button
-          type="submit"
-          disabled={!stripe || !clientSecret}
-          className="btn btn-primary btn-sm mt-5 w-full"
-        >
-          Pay
-        </button>
+            }}
+          />
+          <button
+            type="submit"
+            disabled={!stripe || !clientSecret}
+            className="btn btn-primary btn-sm mt-5 w-full"
+          >
+            Pay
+          </button>
         </form>
-      {cardError ? <p className="text-red text-xs italic">{cardError}</p> : ''}
-     
-      <div className="mt-5 text-center">
-      </div>
+        {cardError ? <p className="text-red text-xs italic">{cardError}</p> : ''}
+        <div className="mt-5 text-center"></div>
       </div>
     </div>
   );
