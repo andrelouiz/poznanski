@@ -5,36 +5,28 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/ThemeContext";
 
-const CheckoutForm = ({ cart }) => {
+const CheckoutForm = ({ price, cart }) => {
   const { isDarkMode } = useTheme();
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState('');
   const [clientSecret, setClientSecret] = useState("");
-  const [price, setPrice] = useState(0);
+  const [transactionId, setTransactionId] = useState(null); // Add transactionId state
 
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  // Calculate total price from the cart
   useEffect(() => {
-    if (cart.length > 0) {
-      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      setPrice(totalPrice);
-    } else {
-      setPrice(0);
-    }
-  }, [cart]);
-
-  useEffect(() => {
-    if (price <= 0) {
-      console.error('Invalid price value. Must be greater than 0.');
+    if (typeof price !== 'number' || price < 1) {
+      console.error('Invalid price value. Must be a number greater than or equal to 1.');
       return;
     }
-
+  
     axiosSecure.post('https://poznanski.onrender.com/create-payment-intent', { price })
       .then(res => {
+        console.log(res.data.clientSecret);
+        console.log(price);
         setClientSecret(res.data.clientSecret);
       })
       .catch(error => {
@@ -42,6 +34,7 @@ const CheckoutForm = ({ cart }) => {
       });
   }, [price, axiosSecure]);
 
+  // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -82,8 +75,10 @@ const CheckoutForm = ({ cart }) => {
 
     if (paymentIntent.status === "succeeded") {
       const transactionId = paymentIntent.id;
+      setTransactionId(transactionId); // Set transactionId
       setCardError(`Your transaction ID is: ${transactionId}`);
 
+      // save payment info to server
       const paymentInfo = {
         email: user.email,
         transactionId,
@@ -95,6 +90,7 @@ const CheckoutForm = ({ cart }) => {
         menuItems: cart.map(item => item.menuItemId),
       };
 
+      // send payment info
       axiosSecure.post('https://poznanski.onrender.com/payments', paymentInfo)
         .then(res => {
           if (res.data) {
@@ -112,7 +108,7 @@ const CheckoutForm = ({ cart }) => {
     <div className="flex flex-col sm:flex-row justify-start items-start gap-8">
       <div className="md:w-1/2 space-y-3">
         <h4 className="text-lg font-semibold">Order Summary</h4>
-        <p>Total Price: PLN {price.toFixed(2)}</p>
+        <p>Total Price: PLN{price}</p>
         <p>Number of Items: {cart.length}</p>
       </div>
       <div className={`md:w-1/3 w-full border space-y-5 card shrink-0 max-w-sm shadow-2xl bg-base-100 px-4 py-8 ${isDarkMode ? 'dark' : ''}`}>
@@ -143,7 +139,8 @@ const CheckoutForm = ({ cart }) => {
             Pay
           </button>
         </form>
-        {cardError && <p className="text-red text-xs italic">{cardError}</p>}
+        {cardError ? <p className="text-red text-xs italic">{cardError}</p> : ''}
+        {transactionId && <p className="text-green-600 text-sm mt-2">Transaction ID: {transactionId}</p>}
       </div>
     </div>
   );
