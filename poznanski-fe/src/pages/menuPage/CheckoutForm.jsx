@@ -19,8 +19,12 @@ const CheckoutForm = ({ cart }) => {
 
   // Calculate total price from the cart
   useEffect(() => {
-    const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
-    setPrice(totalPrice);
+    if (cart.length > 0) {
+      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      setPrice(totalPrice);
+    } else {
+      setPrice(0);
+    }
   }, [cart]);
 
   useEffect(() => {
@@ -108,7 +112,7 @@ const CheckoutForm = ({ cart }) => {
     <div className="flex flex-col sm:flex-row justify-start items-start gap-8">
       <div className="md:w-1/2 space-y-3">
         <h4 className="text-lg font-semibold">Order Summary</h4>
-        <p>Total Price: PLN {price}</p>
+        <p>Total Price: PLN {price.toFixed(2)}</p>
         <p>Number of Items: {cart.length}</p>
       </div>
       <div className={`md:w-1/3 w-full border space-y-5 card shrink-0 max-w-sm shadow-2xl bg-base-100 px-4 py-8 ${isDarkMode ? 'dark' : ''}`}>

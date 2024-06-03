@@ -12,24 +12,24 @@ const CartPage = () => {
   const { user, loading } = useContext(AuthContext);
   const [cart, refetch] = useCart();
   const [cartItems, setCartItems] = useState([]);
-  const navigate = useNavigate();  // Use navigate for redirection
+  const navigate = useNavigate();
 
-  // Redirect to login if not authenticated
   useEffect(() => {
     if (!loading && !user) {
       navigate('/login');
     }
   }, [user, loading, navigate]);
 
-  // Ensure cart is an array
-  const validCart = Array.isArray(cart) ? cart : [];
+  useEffect(() => {
+    setCartItems(cart);
+  }, [cart]);
 
-  // Calculate the total price for each item in the cart
+  const validCart = Array.isArray(cartItems) ? cartItems : [];
+
   const calculateTotalPrice = (item) => {
     return item.price * item.quantity;
   };
 
-  // Handle quantity increase
   const handleIncrease = async (item) => {
     try {
       const response = await fetch(`https://poznanski.onrender.com/carts/${item._id}`, {
@@ -42,7 +42,7 @@ const CartPage = () => {
 
       if (response.ok) {
         const updatedCart = cartItems.map((cartItem) => {
-          if (cartItem.id === item.id) {
+          if (cartItem._id === item._id) {
             return {
               ...cartItem,
               quantity: cartItem.quantity + 1,
@@ -50,8 +50,8 @@ const CartPage = () => {
           }
           return cartItem;
         });
-        await refetch();
         setCartItems(updatedCart);
+        await refetch();
       } else {
         console.error("Failed to update quantity");
       }
@@ -60,24 +60,20 @@ const CartPage = () => {
     }
   };
 
-  // Handle quantity decrease
   const handleDecrease = async (item) => {
     if (item.quantity > 1) {
       try {
-        const response = await fetch(
-          `https://poznanski.onrender.com/carts/${item._id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ quantity: item.quantity - 1 }),
-          }
-        );
+        const response = await fetch(`https://poznanski.onrender.com/carts/${item._id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ quantity: item.quantity - 1 }),
+        });
 
         if (response.ok) {
           const updatedCart = cartItems.map((cartItem) => {
-            if (cartItem.id === item.id) {
+            if (cartItem._id === item._id) {
               return {
                 ...cartItem,
                 quantity: cartItem.quantity - 1,
@@ -85,8 +81,8 @@ const CartPage = () => {
             }
             return cartItem;
           });
-          await refetch();
           setCartItems(updatedCart);
+          await refetch();
         } else {
           console.error("Failed to update quantity");
         }
@@ -96,15 +92,12 @@ const CartPage = () => {
     }
   };
 
-  // Calculate the cart subtotal
   const cartSubtotal = validCart.reduce((total, item) => {
     return total + calculateTotalPrice(item);
   }, 0);
 
-  // Calculate the order total
   const orderTotal = cartSubtotal;
 
-  // Handle item deletion
   const handleDelete = (item) => {
     Swal.fire({
       title: "Are you sure?",
@@ -130,10 +123,8 @@ const CartPage = () => {
 
   return (
     <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
-      {/* banner */}
       <div className={`bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100% ${isDarkMode ? "dark" : ""}`}>
         <div className="py-28 flex flex-col items-center justify-center">
-          {/* content */}
           <div className="text-center px-4 space-y-7">
             <h2 className="md:text-5xl text-4xl font-bold md:leading-snug leading-snug">
               Items Added to The <span className="text-red">Cart</span>
@@ -142,73 +133,68 @@ const CartPage = () => {
         </div>
       </div>
 
-      {/* cart table */}
       {validCart.length > 0 ? (
         <div>
-          <div>
-            <div className="overflow-x-auto">
-              <table className="table">
-                {/* head */}
-                <thead className="bg-red text-white rounded-sm">
-                  <tr>
-                    <th>#</th>
-                    <th>Devices</th>
-                    <th>Item Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {validCart.map((item, index) => (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>
-                        <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12">
-                            <img
-                              src={item.image}
-                              alt="Avatar Tailwind CSS Component"
-                            />
-                          </div>
+          <div className="overflow-x-auto">
+            <table className="table">
+              <thead className="bg-red text-white rounded-sm">
+                <tr>
+                  <th>#</th>
+                  <th>Devices</th>
+                  <th>Item Name</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {validCart.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12">
+                          <img
+                            src={item.image}
+                            alt="Device"
+                          />
                         </div>
-                      </td>
-                      <td className="font-medium">{item.name}</td>
-                      <td className="flex">
-                        <button
-                          className="btn btn-xs"
-                          onClick={() => handleDecrease(item)}
-                        >
-                          -
-                        </button>
-                        <input
-                          type="number"
-                          value={item.quantity}
-                          onChange={() => console.log(item.quantity)}
-                          className={`w-10 mx-2 text-center overflow-hidden appearance-none ${isDarkMode ? "dark" : ""}`}
-                        />
-                        <button
-                          className="btn btn-xs"
-                          onClick={() => handleIncrease(item)}
-                        >
-                          +
-                        </button>
-                      </td>
-                      <td>${calculateTotalPrice(item).toFixed(2)}</td>
-                      <td>
-                        <button
-                          className="btn btn-sm border-none text-red bg-transparent"
-                          onClick={() => handleDelete(item)}
-                        >
-                          <FaTrash />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-                {/* foot */}
-              </table>
-            </div>
+                      </div>
+                    </td>
+                    <td className="font-medium">{item.name}</td>
+                    <td className="flex">
+                      <button
+                        className="btn btn-xs"
+                        onClick={() => handleDecrease(item)}
+                      >
+                        -
+                      </button>
+                      <input
+                        type="number"
+                        value={item.quantity}
+                        readOnly
+                        className={`w-10 mx-2 text-center overflow-hidden appearance-none ${isDarkMode ? "dark" : ""}`}
+                      />
+                      <button
+                        className="btn btn-xs"
+                        onClick={() => handleIncrease(item)}
+                      >
+                        +
+                      </button>
+                    </td>
+                    <td>${calculateTotalPrice(item).toFixed(2)}</td>
+                    <td>
+                      <button
+                        className="btn btn-sm border-none text-red bg-transparent"
+                        onClick={() => handleDelete(item)}
+                      >
+                        <FaTrash />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
           <hr />
           <div className="flex flex-col md:flex-row justify-between items-start my-12 gap-8">
@@ -217,7 +203,7 @@ const CartPage = () => {
               <p>Name: {user?.displayName || "None"}</p>
               <p>Email: {user?.email}</p>
               <p>
-                User_id: <span className="text-sm">{user?.uid}</span>
+                User ID: <span className="text-sm">{user?.uid}</span>
               </p>
             </div>
             <div className="md:w-1/2 space-y-3">
@@ -226,7 +212,10 @@ const CartPage = () => {
               <p>
                 Total Price: <span id="total-price">${orderTotal.toFixed(2)}</span>
               </p>
-              <Link to="/process-checkout" className="btn btn-md bg-red text-white px-8 py-1">
+              <Link to={{
+                pathname: "/process-checkout",
+                state: { cartItems, orderTotal }
+              }} className="btn btn-md bg-red text-white px-8 py-1">
                 Proceed to Checkout
               </Link>
             </div>
