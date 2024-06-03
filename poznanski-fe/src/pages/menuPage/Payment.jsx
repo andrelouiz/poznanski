@@ -4,7 +4,7 @@ import CheckoutForm from "./CheckoutForm";
 import { loadStripe } from "@stripe/stripe-js";
 import useCart from "../../hooks/useCart";
 
-// Define Stripe public key
+// Stripe public key
 const stripePromise = loadStripe(import.meta.env.VITE_Stripe_PK);
 
 const Payment = () => {
