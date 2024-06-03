@@ -92,7 +92,7 @@ const CheckoutForm = ({ cart }) => {
       // Save payment info to server
       const paymentInfo = {
         email: user.email,
-        transitionId, // Corrected the property name to transitionId
+        transitionId,
         price,
         quantity: cart.length,
         status: "order pending",
