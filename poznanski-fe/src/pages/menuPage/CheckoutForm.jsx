@@ -1,30 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/ThemeContext";
 
-//checkout
 const CheckoutForm = ({ cart }) => {
   const { isDarkMode } = useTheme();
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState('');
   const [clientSecret, setClientSecret] = useState("");
-  const [totalPrice, setTotalPrice] = useState(0); // Updated state for total price
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalItems, setTotalItems] = useState(0); // New state to track total number of items
 
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  // Calculate total price and total number of items from the cart
   useEffect(() => {
-    // Calculate total price from the cart!!
     if (cart.length > 0) {
       const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
       setTotalPrice(totalPrice);
+      setTotalItems(totalItems);
     } else {
       setTotalPrice(0);
+      setTotalItems(0);
     }
   }, [cart]);
 
@@ -61,55 +64,46 @@ const CheckoutForm = ({ cart }) => {
       return;
     }
 
-    // console.log('card: ', card)
-    const {error, paymentMethod} = await stripe.createPaymentMethod({
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card,
     });
 
     if (error) {
-      console.log('[error]', error);
       setCardError(error.message);
       return;
     }
 
-    const {paymentIntent, error:confirmError} = await stripe.confirmCardPayment(
-      clientSecret,
-      {
-        payment_method: {
-          card: card,
-          billing_details: {
-            name: user?.displayName || 'anonymous',
-            email: user?.email || 'unknown'
-          },
+    const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: card,
+        billing_details: {
+          name: user?.displayName || 'Anonymous',
+          email: user?.email || 'Unknown',
         },
       },
-    );
+    });
 
-    if(confirmError){
-      console.log(confirmError);
+    if (confirmError) {
+      setCardError(confirmError.message);
       return;
     }
 
-    console.log('paymentIntent', paymentIntent);
-
-    if(paymentIntent.status === "succeeded") {
+    if (paymentIntent.status === "succeeded") {
       const transitionId = paymentIntent.id;
       setCardError(`Your transaction ID is: ${transitionId}`);
 
-      // save payment info to server
       const paymentInfo = {
         email: user.email,
         transitionId,
-        price: totalPrice,
-        quantity: cart.length,
+        price: totalPrice, // Use totalPrice instead of price
+        quantity: totalItems, // Use totalItems instead of cart.length
         status: "order pending",
         itemsName: cart.map(item => item.name),
         cartItems: cart.map(item => item._id),
         menuItems: cart.map(item => item.menuItemId),
       };
 
-      // send payment info
       axiosSecure.post('https://poznanski.onrender.com/payments', paymentInfo)
         .then(res => {
           if (res.data) {
@@ -127,8 +121,8 @@ const CheckoutForm = ({ cart }) => {
     <div className="flex flex-col sm:flex-row justify-start items-start gap-8">
       <div className="md:w-1/2 space-y-3">
         <h4 className="text-lg font-semibold">Order Summary</h4>
-        <p>Total Price: PLN {totalPrice.toFixed(2)}</p> {/* Display total price */}
-        <p>Number of Items: {cart.length}</p>
+        <p>Total Price: PLN {totalPrice.toFixed(2)}</p>
+        <p>Number of Items: {totalItems}</p>
       </div>
       <div className={`md:w-1/3 w-full border space-y-5  card shrink-0 max-w-sm shadow-2xl bg-base-100 px-4 py-8 ${isDarkMode ? 'dark' : ''}`}>
         <h4 className="text-lg font-semibold">Process your Payment!</h4>
@@ -158,8 +152,7 @@ const CheckoutForm = ({ cart }) => {
             Pay
           </button>
         </form>
-        {cardError ? <p className="text-red text-xs italic">{cardError}</p> : ''}
-        <div className="mt-5 text-center"></div>
+        {cardError && <p className="text-red text-xs italic">{cardError}</p>}
       </div>
     </div>
   );

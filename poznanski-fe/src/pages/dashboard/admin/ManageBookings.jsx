@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useMenu from "../../../hooks/useMenu";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
-import { FaArrowCircleRight, FaArrowLeft, FaArrowRight, FaEdit, FaTrashAlt, FaUsers } from "react-icons/fa";
+import { FaArrowCircleRight, FaArrowLeft, FaArrowRight, FaEdit, FaUsers } from "react-icons/fa";
 import { GiConfirmed } from "react-icons/gi";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
@@ -26,41 +26,37 @@ const ManageBookings = () => {
       return res.json();
     },
   });
-    //   console.log(menu)
-      const axiosSecure = useAxiosSecure();
-    
-    //   pagination
-    const [currentPage, setCurrentPage] = useState(1);
-    const items_Per_Page =  10;
-    const indexOfLastItem = currentPage * items_Per_Page;
-      const indexOfFirstItem = indexOfLastItem - items_Per_Page;
-      const currentItems = orders.slice(indexOfFirstItem, indexOfLastItem);
-    
-      // delete item
-      const handleDeleteItem = (item) => {
-        console.log(item._id)
+
+  const axiosSecure = useAxiosSecure();
+
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = orders.slice(indexOfFirstItem, indexOfLastItem);
+
+  // confirm order
+  const confirmOrder = async (item) => {
+    try {
+      await axiosSecure.patch(`https://poznanski.onrender.com/payments/${item._id}`);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: `Order Confirmed Now!`,
+        showConfirmButton: false,
+        timer: 1500
+      });
+      refetch();
+    } catch (error) {
+      console.error("Error confirming order:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong while confirming the order!",
+      });
     }
-
-    // confirm order
-    const confiremedOrder = async(item) => {
-      console.log(item)
-    await  axiosSecure.patch(`https://poznanski.onrender.com/payments/${item._id}`)
-      .then(res =>{
-          console.log(res.data)
-          Swal.fire({
-              position: "center",
-              icon: "success",
-              title: `Order Confirmed Now!`,
-              showConfirmButton: false,
-              timer: 1500
-            });
-          refetch();
-      })
-
-    }
-
-  console.log(orders)
-
+  };
 
   return (
     <div className="w-full md:w-[870px] mx-auto px-4 ">
@@ -81,37 +77,25 @@ const ManageBookings = () => {
                 <th>Price</th>
                 <th>Status</th>
                 <th>Confirm Order</th>
-                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
               {currentItems.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>
-                   {item.email}
-                  </td>
+                  <td>{item.email}</td>
                   <td>{item.transitionId}</td>
                   <td>${item.price}</td>
-                  <td>
-                    {item.status}
-                  </td>
+                  <td>{item.status}</td>
                   <td className="text-center">
-                  {item.status === "confirmed" ? "done" :  <button
-                      className="btn bg-red text-white btn-xs text-center"
-                      onClick={() => confiremedOrder(item)}
-                    >
-                      <GiConfirmed />
-                    </button> }
-                   
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => handleDeleteItem(item)}
-                      className="btn btn-ghost btn-xs"
-                    >
-                      <FaTrashAlt className="text-red"></FaTrashAlt>
-                    </button>
+                    {item.status === "confirmed" ? "done" : (
+                      <button
+                        className="btn bg-red text-white btn-xs text-center"
+                        onClick={() => confirmOrder(item)}
+                      >
+                        <GiConfirmed />
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -122,23 +106,23 @@ const ManageBookings = () => {
 
       {/* Pagination */}
       <div className="flex justify-center my-4">
-          <button
-            onClick={() => setCurrentPage(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="btn btn-sm mr-2 btn-warning"
-          >
-            <FaArrowLeft/> Previous 
-          </button>
-          <button
-            onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={indexOfLastItem >= orders.length}
-            className="btn btn-sm bg-red text-white"
-          >
-            Next  <FaArrowRight/>
-          </button>
-        </div>
+        <button
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="btn btn-sm mr-2 btn-warning"
+        >
+          <FaArrowLeft/> Previous 
+        </button>
+        <button
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={indexOfLastItem >= orders.length}
+          className="btn btn-sm bg-red text-white"
+        >
+          Next  <FaArrowRight/>
+        </button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ManageBookings
+export default ManageBookings;
