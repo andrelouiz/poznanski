@@ -168,7 +168,7 @@ const CheckoutForm = ({ cart }) => {
             Pay
           </button>
           <div>
-          <img src="./images/home/payments.png" alt=""   />
+          <img src="./images/home/payments.png" alt=""  />
           </div>
         </form>
         {cardError && <p className="text-red text-xs italic">{cardError}</p>}

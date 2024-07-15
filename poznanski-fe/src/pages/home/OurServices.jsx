@@ -38,6 +38,7 @@ const OurServices = () => {
                             <img src={service.img} alt="" className=" mx-auto"/>
                             <h5 className="pt-3 font-semibold"> {service.title}</h5>
                             <p className={`text-${isDarkMode ? 'white' : 'black'} my-5 leading-[30px] `}>{service.des}</p>
+                        
                         </div>
                     ))
                 }
