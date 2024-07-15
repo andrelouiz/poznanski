@@ -10,7 +10,8 @@ const Footer = () => {
         }`}>
         <aside>
           <img src="/logo.png" alt="" />
-          <p className="my-3 md:w-40">
+          <p className="my-3 md:w-80">
+          <img src="./images/home/payments.png" alt=""   />
           </p>
         </aside>
         <nav>
@@ -28,6 +29,9 @@ const Footer = () => {
           <header className={`footer-title text-${isDarkMode ? 'dark' : ''}`}>Contact Us</header>
           <a href= "mailto: customerservice@poznanski.com"> customerservice@poznanski.com</a>
           <a href="tel:+48 555 777 888"> +48 555 777 888</a>
+    
+
+          
         </nav>
       </footer>
         <hr />

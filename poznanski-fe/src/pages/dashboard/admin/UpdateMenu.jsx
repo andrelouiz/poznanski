@@ -90,7 +90,7 @@ const UpdateMenu = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-control w-full my-6">
             <label className="label">
-              <span className="label-text">Device Name*</span>
+              <span className="label-text">Device Name</span>
             </label>
             <input
               type="text"

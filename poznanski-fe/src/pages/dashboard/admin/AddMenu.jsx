@@ -54,7 +54,7 @@ const AddMenu = () => {
   return (
     <div className="w-full md:w-[870px] mx-auto px-4">
       <h2 className="text-2xl font-semibold my-4">
-        Upload A New <span className="text-red">Menu Item</span>
+        Add A New <span className="text-red">Device</span>
       </h2>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>

@@ -96,6 +96,10 @@ const CartPage = () => {
     return total + calculateTotalPrice(item);
   }, 0);
 
+  const totalQuantity = validCart.reduce((total, item) => {
+    return total + item.quantity;
+  }, 0);
+
   const orderTotal = cartSubtotal;
 
   const handleDelete = (item) => {
@@ -208,7 +212,7 @@ const CartPage = () => {
             </div>
             <div className="md:w-1/2 space-y-3">
               <h3 className="text-lg font-semibold">Shopping Details</h3>
-              <p>Total Items: {validCart.length}</p>
+              <p>Total Items: {totalQuantity}</p>
               <p>
                 Total Price: <span id="total-price">${orderTotal.toFixed(2)}</span>
               </p>

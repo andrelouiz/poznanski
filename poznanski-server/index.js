@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Function to start the server
+// Function to start the db
 const startServer = async () => {
   try {
     await mongoose.connect(

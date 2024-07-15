@@ -123,11 +123,27 @@ const CheckoutForm = ({ cart }) => {
         <h4 className="text-lg font-semibold">Order Summary</h4>
         <p>Total Price: PLN {totalPrice.toFixed(2)}</p>
         <p>Number of Items: {totalItems}</p>
+        <div>
+          <h4 className="text-lg font-semibold">Items:</h4>
+          <ul>
+            {cart.map((item, index) => (
+              <li key={index} className="flex items-center space-x-4">
+                <img src={item.image} alt={item.name} className="w-16 h-16 object-cover" />
+                <div>
+                  <p>{item.name}</p>
+                  <p>Price: PLN {item.price.toFixed(2)}</p>
+                  <p>Quantity: {item.quantity}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-      <div className={`md:w-1/3 w-full border space-y-5  card shrink-0 max-w-sm shadow-2xl bg-base-100 px-4 py-8 ${isDarkMode ? 'dark' : ''}`}>
+      <div className={`md:w-1/3 w-full border space-y-5 card shrink-0 max-w-sm shadow-2xl bg-base-100 px-4 py-8 ${isDarkMode ? 'dark' : ''}`}>
         <h4 className="text-lg font-semibold">Process your Payment!</h4>
         <h5 className="font-medium">Credit/Debit Card</h5>
         <form onSubmit={handleSubmit}>
+          
           <CardElement
             options={{
               style: {
@@ -151,6 +167,9 @@ const CheckoutForm = ({ cart }) => {
           >
             Pay
           </button>
+          <div>
+          <img src="./images/home/payments.png" alt=""   />
+          </div>
         </form>
         {cardError && <p className="text-red text-xs italic">{cardError}</p>}
       </div>
