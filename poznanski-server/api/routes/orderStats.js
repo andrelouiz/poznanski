@@ -1,16 +1,13 @@
 const express = require('express');
 const router = express.Router();
-// Import your middleware
-const User = require('../models/User');
-const Menu = require('../models/Menu');
-const Payment = require('../models/Payments'); // Corrected import statement
+const Payment = require('../models/Payment'); // Corrected import statement (singular 'Payment')
 
-// middleware
+// Middleware
 const verifyToken = require('../middlewares/verifyToken');
-const verifyAdmin = require('../middlewares/verifyAdmin');
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
+    // Aggregate pipeline to fetch payment statistics
     const result = await Payment.aggregate([
       { $unwind: '$menuItems' }, // Unwind the menuItems array
       {
@@ -26,7 +23,7 @@ router.get('/', async (req, res) => {
         $group: {
           _id: '$menuItemDetails.category', // Group by category from Menu documents
           quantity: { $sum: '$quantity' }, // Sum of quantity from Payments documents
-          revenue: { $sum: '$price' } // Sum of price from Payments documents
+          revenue: { $sum: { $multiply: ['$quantity', '$price'] } } // Calculate revenue as sum of (quantity * price)
         }
       },
       {
@@ -39,14 +36,16 @@ router.get('/', async (req, res) => {
       }
     ]);
 
-    if (result.length === 0) {
-      return res.status(404).json({ message: 'No data found' });
+    // Validate result
+    if (!result || result.length === 0) {
+      return res.status(404).json({ message: 'No payment statistics found' });
     }
 
+    // Return the aggregated result
     res.json(result);
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
+    console.error('Error fetching payment statistics:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
