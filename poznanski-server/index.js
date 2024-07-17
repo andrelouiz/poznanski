@@ -16,7 +16,7 @@ app.use(express.json());
 const startServer = async () => {
   try {
     await mongoose.connect(
-      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}>@poznanski.wtv42cv.mongodb.net/?retryWrites=true&w=majority&appName=poznanski`
+      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}>@poznanski.wtv42cv.mongodb.net/?retryWrites=true`
     );
     console.log("Mongodb connected successfully!");
 
