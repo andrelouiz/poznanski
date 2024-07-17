@@ -1,53 +1,52 @@
 const express = require('express');
 const router = express.Router();
-// Import your middleware
-const User = require('../models/User');
-const Menu = require('../models/Menu');
-const Payment = require('../models/Payments'); // Corrected import statement
-
-// middleware
+const Payment = require('../models/Payments');
 const verifyToken = require('../middlewares/verifyToken');
 const verifyAdmin = require('../middlewares/verifyAdmin');
 
 router.get('/', async (req, res) => {
   try {
     const result = await Payment.aggregate([
-        {
-          $unwind: '$menuItems'
-        },
-        {
-          $lookup: {
-            from: 'menus', // Assuming the menu collection name is 'menus'
-            localField: 'menuItems',
-            foreignField: '_id',
-            as: 'menuItemDetails'
-          }
-        },
-        {
-          $unwind: '$menuItemDetails'
-        },
-        {
-          $group: {
-            _id: '$menuItemDetails.category',
-            quantity: { $sum: '$quantity' },
-            revenue: { $sum: '$price' }
-          }
-        },
-        {
-          $project: {
-            _id: 0,
-            category: '$_id',
-            quantity: '$quantity',
-            revenue: '$revenue'
-          }
+      { $unwind: '$menuItems' },
+      {
+        $lookup: {
+          from: 'menus',
+          localField: 'menuItems',
+          foreignField: '_id',
+          as: 'menuItemDetails'
         }
-      ]);
+      },
+      { $unwind: '$menuItemDetails' },
+      {
+        $group: {
+          _id: '$menuItemDetails.category',
+          quantity: { $sum: '$quantity' },
+          revenue: { $sum: '$price' }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          category: '$_id',
+          quantity: '$quantity',
+          revenue: '$revenue'
+        }
+      }
+    ]);
+
+    if (result.length === 0) {
+      return res.status(404).json({ message: 'No data found' });
+    }
 
     res.json(result);
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching order stats:', error);
     res.status(500).send('Internal Server Error');
   }
 });
 
 module.exports = router;
+
+// In your main server file
+const orderStats = require('./api/routes/orderStats');
+app.use('/order-stats', orderStats);
