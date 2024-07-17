@@ -7,7 +7,10 @@ const jwt = require('jsonwebtoken');
 const port = process.env.PORT || 5000;
 
 const app = express();
-
+app.use((req, res, next) => {
+  res.setHeader("Content-Security-Policy", "default-src 'self'; img-src 'self' data:; media-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com");
+  next();
+});
 // Middleware
 app.use(cors());
 app.use(express.json());
