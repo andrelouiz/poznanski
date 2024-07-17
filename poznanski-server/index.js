@@ -12,17 +12,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Function to start the db
+// Function to start the server
 const startServer = async () => {
   try {
     await mongoose.connect(
-      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@poznanski.wtv42cv.mongodb.net/?retryWrites=true&w=majority`,
+      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@poznanski.wtv42cv.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        // Remove deprecated options:
-        // useCreateIndex: true,
-        // useFindAndModify: false,
       }
     );
     console.log("MongoDB connected successfully!");
