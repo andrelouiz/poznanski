@@ -18,8 +18,9 @@ const Menu = () => {
       try {
         const response = await fetch("https://poznanski.onrender.com/menu");
         const data = await response.json();
-        setMenu(data);
-        setFilteredItems(data); // Initially, display all items
+        const filteredData = data.filter(item => item.category !== "popular");
+        setMenu(filteredData);
+        setFilteredItems(filteredData); // Initially, display all non-popular items
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -28,12 +29,10 @@ const Menu = () => {
     fetchData();
   }, []);
 
-  // console.log(menu)
-
   const filterItems = (category) => {
     const filtered =
       category === "all"
-        ? menu.filter((item) => item.category !== "popular")
+        ? menu
         : menu.filter((item) => item.category === category);
 
     setFilteredItems(filtered);
@@ -42,8 +41,7 @@ const Menu = () => {
   };
 
   const showAll = () => {
-    const filtered = menu.filter((item) => item.category !== "popular");
-    setFilteredItems(filtered);
+    setFilteredItems(menu);
     setSelectedCategory("all");
     setCurrentPage(1);
   };
@@ -76,7 +74,6 @@ const Menu = () => {
     setCurrentPage(1);
   };
 
-  // console.log(filteredItems);
   // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
