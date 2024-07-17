@@ -42,16 +42,21 @@ const Popular = () => {
       .then((data) => {
         const specials = data.filter((item) => item.category === "popular");
 
+        // Log the fetched specials
+        console.log("Fetched specials:", specials);
+
         // Check for duplicates
         const uniqueSpecials = specials.filter((item, index, self) =>
-          index === self.findIndex((t) => t.id === item.id)
+          index === self.findIndex((t) => t._id === item._id)
         );
 
-        // Log the data to debug
-        console.log("Fetched specials:", specials);
+        // Log the unique specials
         console.log("Unique specials:", uniqueSpecials);
 
         setDevices(uniqueSpecials);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
       });
   }, []);
 
@@ -86,7 +91,6 @@ const Popular = () => {
         },
       },
     ],
-
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
@@ -114,7 +118,7 @@ const Popular = () => {
 
       <Slider ref={slider} {...settings} className="overflow-hidden mt-10 space-x-5">
         {devices.map((item) => (
-          <Cards item={item} key={item.id} /> // Ensure unique key based on item.id
+          <Cards item={item} key={item._id} /> // Ensure unique key based on item._id
         ))}
       </Slider>
     </div>
