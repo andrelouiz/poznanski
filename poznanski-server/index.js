@@ -12,17 +12,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Function to start the server
+// Function to start the db
 const startServer = async () => {
   try {
     await mongoose.connect(
-      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@poznanski.wtv42cv.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
+      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@poznanski.wtv42cv.mongodb.net/poznanski?retryWrites=true&w=majority&appName=poznanski`
     );
-    console.log("MongoDB connected successfully!");
+    console.log("Mongodb connected successfully!");
 
     // Import routes
     const menuRoutes = require("./api/routes/menuRoutes");
