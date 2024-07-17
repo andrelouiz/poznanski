@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Payment = require('../models/Payment'); // Corrected import statement (singular 'Payment')
-
+const Payment = require('../models/Payments');
 // Middleware
 const verifyToken = require('../middlewares/verifyToken');
 
