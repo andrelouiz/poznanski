@@ -41,15 +41,18 @@ const Dashboard = () => {
     },
   });
 
-  console.log(stats);
+  //console.log(stats);
+  
   const { data: chartData = [] } = useQuery({
     queryKey: ["order-stats"],
     queryFn: async () => {
-      const res = await axiosSecure.get("https://poznanski.onrender.com/orderStats");
+      const res = await axiosSecure.get("https://poznanski.onrender.com/order-stats");
       return res.data;
     },
   });
-
+  
+console.log(chartData);
+  
   const getPath = (x, y, width, height) => {
     return `M${x},${y + height}C${x + width / 3},${y + height} ${
       x + width / 2
