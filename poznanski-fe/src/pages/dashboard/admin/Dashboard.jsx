@@ -32,7 +32,7 @@ const Dashboard = () => {
     queryKey: ["admin-stats"],
     queryFn: async () => {
       try {
-        const res = await axiosSecure.get("https://poznanski-server.onrender.com/admin-stats");
+        const res = await axiosSecure.get("https://poznanski.onrender.com/admin-stats");
         return res.data;
       } catch (error) {
         console.error("Error fetching admin stats:", error);
@@ -45,7 +45,7 @@ const Dashboard = () => {
   const { data: chartData = [] } = useQuery({
     queryKey: ["order-stats"],
     queryFn: async () => {
-      const res = await axiosSecure.get("https://poznanski-server.onrender.com/order-stats");
+      const res = await axiosSecure.get("https://poznanski.onrender.com/order-stats");
       return res.data;
     },
   });
