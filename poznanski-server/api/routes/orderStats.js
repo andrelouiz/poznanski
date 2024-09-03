@@ -65,7 +65,7 @@ router.get('/', async (req, res) => {
       menuItems,
       orders,
       revenue,
-      categoryStats
+      category
     });
   } catch (error) {
     console.error(error);
