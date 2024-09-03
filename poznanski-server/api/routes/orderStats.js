@@ -1,25 +1,36 @@
 const express = require('express');
 const router = express.Router();
-
 // Import your models
 const User = require('../models/User');
 const Menu = require('../models/Menu');
 const Payment = require('../models/Payments'); 
 
+// middleware
 router.get('/', async (req, res) => {
   try {
-    // Step 1: Check the Payment data structure
-    const paymentData = await Payment.find().limit(10); // Adjust the limit as needed
-    console.log('Payment Data:', paymentData); // Log Payment data to check its structure
-    
-    // Step 2: Check the Menu data structure
-    const menuData = await Menu.find().limit(10); // Adjust the limit as needed
-    console.log('Menu Data:', menuData); // Log Menu data to check its structure
+    // Count of users, menu items, and orders
+    const users = await User.countDocuments();
+    const menuItems = await Menu.countDocuments();
+    const orders = await Payment.countDocuments();
 
-    // Step 3: Run the aggregation pipeline
+    // Total revenue calculation
     const result = await Payment.aggregate([
       {
-        $unwind: '$menuItems' // Ensure menuItems is an array
+        $group: {
+          _id: null,
+          totalRevenue: {
+            $sum: '$price'
+          }
+        }
+      }
+    ]);
+
+    const revenue = result.length > 0 ? result[0].totalRevenue : 0;
+
+    // Calculate statistics by category
+    const categoryStats = await Payment.aggregate([
+      {
+        $unwind: '$menuItems'
       },
       {
         $lookup: {
@@ -30,7 +41,7 @@ router.get('/', async (req, res) => {
         }
       },
       {
-        $unwind: '$menuItemDetails' // Ensure menuItemDetails is correctly populated
+        $unwind: '$menuItemDetails'
       },
       {
         $group: {
@@ -49,11 +60,15 @@ router.get('/', async (req, res) => {
       }
     ]);
 
-    console.log('Aggregation Result:', result); // Log the result to see what the aggregation returns
-
-    res.json(result);
+    res.json({
+      users,
+      menuItems,
+      orders,
+      revenue,
+      categoryStats
+    });
   } catch (error) {
-    console.error('Error during aggregation:', error); // Log any errors that occur
+    console.error(error);
     res.status(500).send('Internal Server Error');
   }
 });
