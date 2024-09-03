@@ -5,7 +5,10 @@ const User = require('../models/User');
 const Menu = require('../models/Menu');
 const Payment = require('../models/Payments'); 
 
-// middleware
+// middleware (if needed)
+// const verifyToken = require('../middlewares/verifyToken');
+// const verifyAdmin = require('../middlewares/verifyAdmin');
+
 router.get('/', async (req, res) => {
   try {
     // Count of users, menu items, and orders
@@ -14,7 +17,7 @@ router.get('/', async (req, res) => {
     const orders = await Payment.countDocuments();
 
     // Total revenue calculation
-    const result = await Payment.aggregate([
+    const revenueResult = await Payment.aggregate([
       {
         $group: {
           _id: null,
@@ -25,24 +28,20 @@ router.get('/', async (req, res) => {
       }
     ]);
 
-    const revenue = result.length > 0 ? result[0].totalRevenue : 0;
+    const revenue = revenueResult.length > 0 ? revenueResult[0].totalRevenue : 0;
 
-    // Calculate statistics by category
+    // Category statistics calculation
     const categoryStats = await Payment.aggregate([
-      {
-        $unwind: '$menuItems'
-      },
+      { $unwind: '$menuItems' },
       {
         $lookup: {
-          from: 'menus', 
+          from: 'menus', // Assuming the menu collection name is 'menus'
           localField: 'menuItems',
           foreignField: '_id',
           as: 'menuItemDetails'
         }
       },
-      {
-        $unwind: '$menuItemDetails'
-      },
+      { $unwind: '$menuItemDetails' },
       {
         $group: {
           _id: '$menuItemDetails.category',
@@ -65,7 +64,7 @@ router.get('/', async (req, res) => {
       menuItems,
       orders,
       revenue,
-      category
+      categoryStats
     });
   } catch (error) {
     console.error(error);
