@@ -6,10 +6,10 @@ const Menu = require('../models/Menu');
 const Payment = require('../models/Payments'); 
 
 // middleware
-const verifyToken = require('../middlewares/verifyToken')
-const verifyAdmin = require('../middlewares/verifyAdmin')
+//const verifyToken = require('../middlewares/verifyToken')
+//const verifyAdmin = require('../middlewares/verifyAdmin')
 
-router.get('/', verifyToken, verifyAdmin, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const users = await User.countDocuments();
     const menuItems = await Menu.countDocuments();
